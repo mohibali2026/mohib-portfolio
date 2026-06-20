@@ -21,9 +21,11 @@ export default function Home() {
         }
         .home-img { width: 230px; height: 320px; margin-bottom: 8px; }
         @media (min-width: 768px) { .home-img { width: 300px; height: 380px; } }
-        @media (min-width: 1024px) { .home-img { width: 320px; height: 400px; margin-bottom: 0; } }
+        @media (min-width: 1024px) { .home-img { width: 320px; height: 400px; margin-bottom: 0; align-self: center; } }
         .home-wrap { padding: 120px 40px 80px 40px; }
-        @media (min-width: 1024px) { .home-wrap { padding: 0 80px; min-height: 100vh; display: flex; align-items: center; justify-content: center; } }
+        @media (min-width: 1024px) { .home-wrap { padding: 0 80px; min-height: 100vh; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 120px; } }
+        .home-text { display: flex; flex-direction: column; }
+        @media (min-width: 1024px) { .home-text { align-self: center; } }
         .home-name { font-size: 32px; white-space: nowrap; }
         @media (min-width: 1024px) { .home-name { font-size: clamp(40px, 5vw, 72px); } }
       `}</style>
@@ -43,7 +45,7 @@ export default function Home() {
         </div>
 
         {/* TEXT — below image on mobile, left on desktop */}
-        <div className="order-2 lg:order-1 flex flex-col lg:justify-center">
+        <div className="home-text order-2 lg:order-1">
           <p className="hidden lg:block text-[#888] text-xs tracking-[0.2em] uppercase home-gap-md">
             Designer, Photographer & Poet
           </p>

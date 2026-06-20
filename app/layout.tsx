@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head />
       <body className="min-h-full flex flex-col" style={{ backgroundColor: "var(--bg)", color: "var(--text-primary)" }}>
         <CustomCursor />
-        <ThemeToggle />
+        <div className="hidden md:block"><ThemeToggle /></div>
         <Navbar />
         <main className="flex-1">
           <PageTransition>{children}</PageTransition>

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Work Experience — Mohib Ali Altaf",
@@ -11,6 +12,7 @@ const experience = [
   {
     company: "Aseel Technology Corporation",
     url: "https://aseelapp.com",
+    logo: "/images/logo-aseel.jpg",
     role: "Product Manager",
     period: "Aug 2025 — Present",
     location: "Türkiye · Hybrid",
@@ -19,6 +21,7 @@ const experience = [
   {
     company: "Bibin Photography Magazine",
     url: "https://bibinmagazine.com",
+    logo: "/images/logo-bibin.jpg",
     role: "Founder",
     period: "Jan 2025 — Present",
     location: "Türkiye",
@@ -27,6 +30,7 @@ const experience = [
   {
     company: "blissio.ai",
     url: "https://blissio.ai",
+    logo: "/images/logo-blissio-v2.jpg",
     role: "Product Lead",
     period: "Jul 2024 — Sep 2024 · 3 mos",
     location: "Istanbul, Türkiye · Remote",
@@ -35,6 +39,7 @@ const experience = [
   {
     company: "Aseel Technology Corporation",
     url: "https://aseelapp.com",
+    logo: "/images/logo-aseel.jpg",
     role: "Product Lead",
     period: "Jan 2023 — Jul 2024 · 1 yr 7 mos",
     location: "Istanbul, Türkiye · On-site",
@@ -43,6 +48,7 @@ const experience = [
   {
     company: "Aseel Technology Corporation",
     url: "https://aseelapp.com",
+    logo: "/images/logo-aseel.jpg",
     role: "Creative Lead",
     period: "Jun 2022 — Dec 2022 · 7 mos",
     location: "Istanbul, Türkiye · Remote",
@@ -51,6 +57,7 @@ const experience = [
   {
     company: "Aseel Technology Corporation",
     url: "https://aseelapp.com",
+    logo: "/images/logo-aseel.jpg",
     role: "Creative Lead",
     period: "Jan 2022 — Jun 2022 · 6 mos",
     location: "Kabul Province, Afghanistan · Remote",
@@ -59,6 +66,7 @@ const experience = [
   {
     company: "Awal Development",
     url: "https://awal.xyz",
+    logo: "/images/logo-awal.jpg",
     role: "Marketing Manager",
     period: "Jun 2020 — Dec 2021 · 1 yr 7 mos",
     location: "Kabul, Afghanistan · On-site",
@@ -67,6 +75,7 @@ const experience = [
   {
     company: "The Khaama Press News Agency",
     url: "https://khaama.com",
+    logo: "/images/logo-khaama.jpg",
     role: "Journalist / Writer",
     period: "Nov 2019 — Jun 2020 · 8 mos",
     location: "Kabul, Afghanistan · On-site",
@@ -75,6 +84,7 @@ const experience = [
   {
     company: "Awal Development",
     url: "https://awal.xyz",
+    logo: "/images/logo-awal.jpg",
     role: "Content Creator",
     period: "Aug 2019 — Nov 2019 · 4 mos",
     location: "Kabul, Afghanistan · On-site",
@@ -109,12 +119,27 @@ export default function ExperiencePage() {
         <div className="mb-24">
           {experience.map((job, i) => (
             <ScrollReveal key={`${job.company}-${i}`} delay={i * 0.05}>
-              <div className="border-b border-[#222] grid md:grid-cols-2 gap-12" style={{ padding: "40px 0" }}>
-                <div>
-                  <p className="text-[#888] text-xs tracking-widest uppercase mb-3">{job.period}</p>
-                  <a href={job.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#f5f0e8] text-xl mb-1 hover:text-[#f5f0e8]/70 transition-colors underline underline-offset-4 decoration-[#444] hover:decoration-[#f5f0e8] block">{job.company}</a>
-                  <p className="text-[#f5f0e8]/70 text-sm mb-1">{job.role}</p>
-                  <p className="text-[#555] text-xs tracking-wide">{job.location}</p>
+              <div className="border-b border-[#222] grid md:grid-cols-2" style={{ padding: "40px 0", gap: "24px" }}>
+                <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+                  <div style={{ width: "48px", height: "48px", flexShrink: 0, overflow: "hidden" }}>
+                    {job.logo ? (
+                      <Image
+                        src={job.logo}
+                        alt={job.company}
+                        width={48}
+                        height={48}
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    ) : (
+                      <div style={{ width: "48px", height: "48px", backgroundColor: "#3B6BF0" }} />
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-[#888] text-xs tracking-widest uppercase" style={{ marginBottom: "4px" }}>{job.period}</p>
+                    <a href={job.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#f5f0e8] text-xl transition-all duration-200 block hover:opacity-60 hover:tracking-wide" style={{ marginBottom: "4px", textDecoration: "none" }}>{job.company}</a>
+                    <p className="text-[#f5f0e8]/70 text-sm" style={{ marginBottom: "4px" }}>{job.role}</p>
+                    <p className="text-[#555] text-xs tracking-wide">{job.location}</p>
+                  </div>
                 </div>
                 <div className="flex items-center">
                   <p className="text-[#888] text-sm leading-relaxed">{job.description}</p>
@@ -122,6 +147,17 @@ export default function ExperiencePage() {
               </div>
             </ScrollReveal>
           ))}
+        </div>
+
+        {/* Recommendations link */}
+        <div style={{ marginTop: "60px" }}>
+          <Link
+            href="/recommendations"
+            className="inline-flex items-center gap-2 text-[#f5f0e8] text-sm tracking-wider uppercase border border-[#333] hover:border-[#f5f0e8] transition-all duration-200"
+            style={{ padding: "12px 24px", textDecoration: "none" }}
+          >
+            Recommendations
+          </Link>
         </div>
 
       </div>

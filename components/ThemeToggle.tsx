@@ -27,16 +27,13 @@ export default function ThemeToggle() {
       <style>{`
         .theme-btn {
           position: fixed;
-          bottom: 32px;
+          top: 28px;
           right: 32px;
           z-index: 9999;
         }
         @media (max-width: 767px) {
           .theme-btn {
-            bottom: auto;
-            right: auto;
-            top: 28px;
-            left: 20px;
+            display: none;
           }
         }
       `}</style>

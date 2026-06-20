@@ -11,12 +11,12 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="px-6 md:px-12 pt-32 pb-24">
-      <div className="max-w-7xl mx-auto">
+    <div style={{ padding: "120px 80px 80px 80px" }}>
+      <div style={{ maxWidth: "1058px", margin: "0 auto" }}>
         <ScrollReveal>
           <div className="border-b border-[#222] pb-12 mb-16">
             <h1
-              className="font-['Space_Grotesk'] font-bold leading-none tracking-tighter text-[#f5f0e8]"
+              className="font-bold leading-none tracking-tighter text-[#f5f0e8]"
               style={{ fontSize: "clamp(56px, 10vw, 120px)" }}
             >
               Let's talk.

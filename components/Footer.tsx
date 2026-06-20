@@ -4,9 +4,9 @@ import { LinkedInIcon, InstagramIcon } from "@/components/SocialIcons";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#222] pt-16 pb-8 px-6 md:px-12">
+    <footer className="border-t border-[#222] pt-16 pb-8 px-6 md:px-16 lg:px-[160px]">
       <div className="max-w-7xl mx-auto">
-        <div className="text-[clamp(40px,8vw,100px)] font-bold tracking-tighter leading-none text-[#f5f0e8] font-['Space_Grotesk'] mb-2">
+        <div className="text-[clamp(40px,8vw,100px)] font-bold tracking-tighter leading-none text-[#f5f0e8] mb-2">
           MOHIB ALI ALTAF
         </div>
         <p className="text-[#888] text-sm tracking-widest uppercase mb-12">
@@ -17,7 +17,7 @@ export default function Footer() {
           <div>
             <p className="text-xs tracking-widest uppercase text-[#888] mb-4">/Quick Links</p>
             <div className="flex flex-col gap-2">
-              {[["Home", "/"], ["Work", "/work"], ["Blog", "/blog"], ["Contact", "/contact"]].map(([label, href]) => (
+              {[["Home", "/"], ["Experience", "/experience"], ["Contact", "/contact"]].map(([label, href]) => (
                 <Link key={href} href={href} className="text-sm text-[#f5f0e8]/70 hover:text-[#f5f0e8] transition-colors">
                   {label}
                 </Link>

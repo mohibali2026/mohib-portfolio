@@ -6,38 +6,24 @@ import { X, Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/work", label: "Work" },
-  { href: "/blog", label: "Blog" },
+  { href: "/", label: "About" },
+  { href: "/experience", label: "Experience" },
   { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   useEffect(() => setOpen(false), [pathname]);
+
+  if (pathname === "/") return null;
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 flex items-center justify-between transition-all duration-300 ${
-          scrolled ? "bg-[#0a0a0a]/95 backdrop-blur-sm border-b border-[#222]" : "bg-transparent"
-        }`}
-      >
-        <Link href="/" className="font-bold text-lg tracking-[0.15em] text-[#f5f0e8] font-['Space_Grotesk']">
-          MOHIB
-        </Link>
-
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-8">
+      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, paddingTop: "40px", paddingBottom: "20px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        {/* Desktop nav — centered */}
+        <div className="hidden md:flex items-center gap-10">
           {links.map((l) => (
             <Link
               key={l.href}
@@ -53,7 +39,7 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden text-[#f5f0e8] p-1"
+          className="md:hidden text-[#f5f0e8] p-1 absolute right-6"
           onClick={() => setOpen(true)}
           aria-label="Open menu"
         >
@@ -71,8 +57,7 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
             className="fixed inset-0 z-[60] bg-[#0a0a0a] flex flex-col px-8 py-8"
           >
-            <div className="flex justify-between items-center mb-16">
-              <span className="font-bold text-lg tracking-[0.15em] font-['Space_Grotesk']">MOHIB</span>
+            <div className="flex justify-end mb-16">
               <button onClick={() => setOpen(false)} aria-label="Close menu">
                 <X size={22} />
               </button>
@@ -87,7 +72,7 @@ export default function Navbar() {
                 >
                   <Link
                     href={l.href}
-                    className="text-4xl font-bold tracking-tight font-['Space_Grotesk'] text-[#f5f0e8]"
+                    className="text-4xl font-bold tracking-tight text-[#f5f0e8]"
                   >
                     {l.label}
                   </Link>

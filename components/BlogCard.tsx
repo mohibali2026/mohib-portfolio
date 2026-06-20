@@ -15,7 +15,7 @@ export default function BlogCard({ slug, date, title, excerpt, large }: Props) {
       <div className="flex items-start justify-between gap-8">
         <div className="flex-1">
           <p className="text-[#888] text-xs tracking-widest uppercase mb-3">{date}</p>
-          <h3 className={`font-['Space_Grotesk'] font-semibold text-[#f5f0e8] mb-3 group-hover:text-[#f5f0e8]/80 transition-colors leading-tight ${large ? "text-2xl md:text-3xl" : "text-lg md:text-xl"}`}>
+          <h3 className={`font-semibold text-[#f5f0e8] mb-3 group-hover:text-[#f5f0e8]/80 transition-colors leading-tight ${large ? "text-2xl md:text-3xl" : "text-lg md:text-xl"}`}>
             {title}
           </h3>
           <p className="text-[#888] text-sm leading-relaxed line-clamp-2">{excerpt}</p>

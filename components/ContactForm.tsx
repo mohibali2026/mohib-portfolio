@@ -14,7 +14,7 @@ export default function ContactForm() {
   if (sent) {
     return (
       <div className="border border-[#222] rounded-sm p-10 text-center">
-        <p className="text-2xl font-['Space_Grotesk'] font-semibold mb-2">Message sent.</p>
+        <p className="text-2xl font-semibold mb-2">Message sent.</p>
         <p className="text-[#888] text-sm">I'll get back to you soon.</p>
       </div>
     );

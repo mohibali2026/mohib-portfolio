@@ -26,7 +26,7 @@ export default function ProjectCard({ slug, title, category, year }: Props) {
       </div>
       <div className="flex items-start justify-between">
         <div>
-          <h3 className="font-['Space_Grotesk'] font-semibold text-[#f5f0e8] text-base mb-1 group-hover:text-[#f5f0e8]/80 transition-colors">
+          <h3 className="font-semibold text-[#f5f0e8] text-base mb-1 group-hover:text-[#f5f0e8]/80 transition-colors">
             {title}
           </h3>
           <p className="text-[#888] text-xs tracking-wider">{category}</p>

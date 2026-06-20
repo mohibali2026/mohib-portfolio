@@ -163,8 +163,7 @@ export default function Navbar() {
               </span>
               <div
                 className="absolute top-full left-0 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
-              style={{ paddingTop: "12px" }}
-                style={{ transition: "opacity 0.2s ease" }}
+                style={{ paddingTop: "12px", transition: "opacity 0.2s ease" }}
               >
                 <div className="flex flex-col gap-3 border border-[#222]" style={{ backgroundColor: "var(--bg)", minWidth: "160px", padding: "12px" }}>
                   {l.children.map((child) => (

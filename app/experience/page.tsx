@@ -85,7 +85,7 @@ const experience = [
 
 export default function ExperiencePage() {
   return (
-    <div style={{ padding: "120px 80px 80px 80px" }}>
+    <div className="page-padding">
       <div style={{ maxWidth: "1058px", margin: "0 auto" }}>
 
         {/* Header */}

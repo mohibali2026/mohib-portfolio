@@ -1,12 +1,22 @@
 
 @import "tailwindcss";
 
-:root {
+/* Dark mode (default) */
+:root, [data-theme="dark"] {
   --bg: #0a0a0a;
   --surface: #111111;
   --text-primary: #f5f0e8;
   --text-secondary: #888888;
   --border: #222222;
+}
+
+/* Light mode */
+[data-theme="light"] {
+  --bg: #f5f0e8;
+  --surface: #ede8e0;
+  --text-primary: #0a0a0a;
+  --text-secondary: #555555;
+  --border: #d0cbc2;
 }
 
 * {
@@ -20,18 +30,78 @@ html {
 }
 
 body {
-  background-color: #0a0a0a;
-  color: #f5f0e8;
+  background-color: var(--bg);
+  color: var(--text-primary);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.page-padding {
+  padding: 120px 40px 80px 40px;
+}
+@media (min-width: 1024px) {
+  .page-padding {
+    padding: 120px 80px 80px 80px;
+  }
+}
+
 ::selection {
-  background: #f5f0e8;
-  color: #0a0a0a;
+  background: var(--text-primary);
+  color: var(--bg);
+}
+
+/* ── Light mode global overrides ── */
+[data-theme="light"],
+[data-theme="light"] body {
+  background-color: #f5f0e8 !important;
+}
+
+/* Force all text to dark in light mode */
+[data-theme="light"] *:not(svg):not(path) {
+  color: #0a0a0a !important;
+  border-color: #d0cbc2 !important;
+}
+
+/* Muted text stays slightly lighter */
+[data-theme="light"] .text-\[\#888\],
+[data-theme="light"] .text-\[\#888888\],
+[data-theme="light"] .text-\[\#555\],
+[data-theme="light"] .text-\[\#444\] {
+  color: #666666 !important;
+}
+
+/* Backgrounds */
+[data-theme="light"] .bg-\[\#0a0a0a\],
+[data-theme="light"] .bg-\[\#111\],
+[data-theme="light"] .bg-\[\#111111\] {
+  background-color: #ede8e0 !important;
+}
+
+/* Nav mobile overlay */
+[data-theme="light"] .fixed.bg-\[\#0a0a0a\] {
+  background-color: #f5f0e8 !important;
+}
+
+/* Form inputs */
+[data-theme="light"] input,
+[data-theme="light"] textarea {
+  background-color: #ede8e0 !important;
+  color: #0a0a0a !important;
+}
+
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: #aaa5a0 !important;
+}
+
+/* Submit button stays readable */
+[data-theme="light"] button[type="submit"] {
+  background-color: #0a0a0a !important;
+  color: #f5f0e8 !important;
 }

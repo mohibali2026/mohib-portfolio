@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import CustomCursor from "@/components/CustomCursor";
 import PageTransition from "@/components/PageTransition";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "Mohib Ali Altaf — Product Designer & Creative Lead",
@@ -14,8 +15,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="h-full">
       <head />
-      <body className="min-h-full flex flex-col bg-[#0a0a0a] text-[#f5f0e8]">
+      <body className="min-h-full flex flex-col" style={{ backgroundColor: "var(--bg)", color: "var(--text-primary)" }}>
         <CustomCursor />
+        <ThemeToggle />
         <Navbar />
         <main className="flex-1">
           <PageTransition>{children}</PageTransition>

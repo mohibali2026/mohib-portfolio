@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   title: "Mohib Ali Altaf — Product Designer & Creative Lead",
   description:
     "Product designer and creative lead with 7+ years of experience in UX/UI, creative direction, and product management. Based in Istanbul, Türkiye.",
+  icons: {
+    icon: "/images/mohib-portrait.png",
+    apple: "/images/mohib-portrait.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

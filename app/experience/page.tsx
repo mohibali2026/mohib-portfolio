@@ -307,7 +307,7 @@ export default function ExperiencePage() {
 
           <div className="lang-grid">
             {[
-              { name: "Persian", nativeName: "فارسی", desc: "My first language. Where I think when it matters.", nativeDesc: "شکر شکن شود همه طوطیان هند", glow: "radial-gradient(ellipse, #06b6d4 0%, #3b82f6 50%, transparent 100%)", rating: 5 },
+              { name: "Persian", nativeName: "فارسی", desc: "My first language. Where I think when it matters.", nativeDesc: "شکر شکن شوند همه طوطیان هند", glow: "radial-gradient(ellipse, #06b6d4 0%, #3b82f6 50%, transparent 100%)", rating: 5 },
               { name: "English", nativeName: "Yes,", desc: "Fluent in writing, speaking, and thinking in it.", nativeDesc: "Almost becoming my everyday language.", glow: "radial-gradient(ellipse, #6366f1 0%, #8b5cf6 50%, transparent 100%)", rating: 4.5 },
               { name: "Urdu", nativeName: "اوردو", desc: "Grown up with it. Feels like home.", nativeDesc: "ابھی کچھ لوگ باقی ہیں جو اردو بول سکتے ہیں", glow: "radial-gradient(ellipse, #f43f5e 0%, #ec4899 50%, transparent 100%)", rating: 3.5 },
               { name: "Pashto", nativeName: "پښتو", desc: "Understand it, speak it when needed.", nativeDesc: "چې سړی هر څومره پښتون شي - زړه چې مئين شي پښتو ټوله ترېنه ځينه", glow: "radial-gradient(ellipse, #10b981 0%, #059669 50%, transparent 100%)", rating: 3 },

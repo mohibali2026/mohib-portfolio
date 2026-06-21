@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 const links = [
   { href: "/", label: "About" },
   { href: "https://bibinmagazine.com", label: "Bibin", external: true },
-  { href: "/experience", label: "Experience" },
+  { href: "/experience", label: "Resume" },
   {
     href: "/photography",
     label: "Photography",

@@ -32,7 +32,7 @@ export default function Home() {
 
       <div className="home-wrap min-h-screen flex flex-col items-start gap-0 lg:flex-row lg:items-center lg:justify-center lg:gap-[120px]">
 
-        {/* IMAGE — top on mobile, right on desktop */}
+        {/* IMAGE , top on mobile, right on desktop */}
         <div className="home-img order-1 lg:order-2 overflow-hidden flex-shrink-0">
           <Image
             src="/images/mohib-portrait.png"
@@ -44,7 +44,7 @@ export default function Home() {
           />
         </div>
 
-        {/* TEXT — below image on mobile, left on desktop */}
+        {/* TEXT , below image on mobile, left on desktop */}
         <div className="home-text order-2 lg:order-1">
           <p className="hidden lg:block text-[#888] text-xs tracking-[0.2em] uppercase home-gap-md">
             Designer, Photographer & Poet

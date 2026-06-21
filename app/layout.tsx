@@ -6,7 +6,7 @@ import PageTransition from "@/components/PageTransition";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
-  title: "Mohib Ali Altaf — Product Designer & Creative Lead",
+  title: "Mohib Ali Altaf , Product Designer & Creative Lead",
   description:
     "Product designer and creative lead with 7+ years of experience in UX/UI, creative direction, and product management. Based in Istanbul, Türkiye.",
   icons: {

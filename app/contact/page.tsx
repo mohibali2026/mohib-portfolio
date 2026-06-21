@@ -4,7 +4,7 @@ import { LinkedInIcon, InstagramIcon, FacebookIcon, XIcon } from "@/components/S
 import CopyButton from "@/components/CopyButton";
 
 export const metadata: Metadata = {
-  title: "Contact — Mohib Ali Altaf",
+  title: "Contact , Mohib Ali Altaf",
   description: "Get in touch with Mohib for product design, creative direction, and photography projects.",
 };
 
@@ -31,7 +31,7 @@ export default function ContactPage() {
               Let's talk.
             </h1>
             <p className="text-[#888] text-base max-w-xl leading-relaxed">
-              Whether you have a project, a question, or just want to connect — I'd love to hear from you.
+              Whether you have a project, a question, or just want to connect , I'd love to hear from you.
             </p>
           </div>
         </ScrollReveal>

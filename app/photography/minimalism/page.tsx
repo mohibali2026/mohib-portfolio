@@ -64,6 +64,26 @@ export default function MinimalismPage() {
     setCurrent(i);
   }, [current]);
 
+  const stripRef = useRef<HTMLDivElement>(null);
+  const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  useEffect(() => {
+    thumbRefs.current[current]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  }, [current]);
+
+  const touchStartX = useRef<number | null>(null);
+
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const onTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
+    touchStartX.current = null;
+  }, [next, prev]);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft") prev();
@@ -76,14 +96,18 @@ export default function MinimalismPage() {
   return (
     <div
       onContextMenu={e => e.preventDefault()}
-      style={{ position: "fixed", inset: 0, backgroundColor: "#0a0a0a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", userSelect: "none" }}
+      style={{ position: "fixed", inset: 0, backgroundColor: "var(--bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", userSelect: "none" }}
     >
       <style>{`
         .photo-frame img { pointer-events: none; -webkit-user-drag: none; -webkit-touch-callout: none; }
       `}</style>
 
       {/* Main image */}
-      <div style={{ position: "relative", flex: 1, width: "100%", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+      <div
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        style={{ position: "relative", flex: 1, width: "100%", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}
+      >
         <AnimatePresence initial={false} custom={direction.current} mode="popLayout">
           <motion.div
             key={current}
@@ -134,28 +158,48 @@ export default function MinimalismPage() {
       </div>
 
       {/* Thumbnail strip */}
-      <div style={{ display: "flex", gap: "8px", padding: "16px 24px", alignItems: "center", overflowX: "auto", maxWidth: "100%" }}>
-        {photos.map((src, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i)}
-            aria-label={`Go to photo ${i + 1}`}
-            style={{
-              width: i === current ? "48px" : "40px",
-              height: i === current ? "48px" : "40px",
-              padding: 0,
-              border: i === current ? "1.5px solid #f5f0e8" : "1.5px solid transparent",
-              cursor: "pointer",
-              overflow: "hidden",
-              flexShrink: 0,
-              opacity: i === current ? 1 : 0.5,
-              transition: "all 0.2s ease",
-              position: "relative",
-            }}
-          >
-            <Image src={src} alt={`Thumbnail ${i + 1}`} fill style={{ objectFit: "cover" }} />
-          </button>
-        ))}
+      <div style={{
+        position: "relative",
+        width: "100%",
+        maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+        WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+      }}>
+        <div
+          ref={stripRef}
+          style={{
+            display: "flex",
+            gap: "8px",
+            padding: "16px 24px",
+            alignItems: "center",
+            overflowX: "auto",
+            width: "100%",
+            scrollbarWidth: "none",
+            justifyContent: "center",
+          }}
+        >
+          {photos.map((src, i) => (
+            <button
+              key={i}
+              ref={el => { thumbRefs.current[i] = el; }}
+              onClick={() => goTo(i)}
+              aria-label={`Go to photo ${i + 1}`}
+              style={{
+                width: i === current ? "48px" : "40px",
+                height: i === current ? "48px" : "40px",
+                padding: 0,
+                border: i === current ? "1.5px solid #f5f0e8" : "1.5px solid transparent",
+                cursor: "pointer",
+                overflow: "hidden",
+                flexShrink: 0,
+                opacity: i === current ? 1 : 0.5,
+                transition: "all 0.2s ease",
+                position: "relative",
+              }}
+            >
+              <Image src={src} alt={`Thumbnail ${i + 1}`} fill style={{ objectFit: "cover" }} />
+            </button>
+          ))}
+        </div>
       </div>
 
     </div>

@@ -27,10 +27,9 @@ export default function ThemeToggle() {
       <style>{`
         .theme-btn {
           position: fixed;
-          top: 37px;
+          top: 24px;
           right: 32px;
           z-index: 9999;
-          transform: translateY(-50%);
         }
         @media (max-width: 767px) {
           .theme-btn { display: none; }

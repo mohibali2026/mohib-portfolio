@@ -12,6 +12,9 @@ const photos = [
   "/images/turkey/6.jpg",
 ];
 
+const STRIP_COUNT = Math.min(10, photos.length);
+const HALF = Math.floor(STRIP_COUNT / 2);
+
 export default function TurkeyPage() {
   const [current, setCurrent] = useState(0);
   const direction = useRef(0);
@@ -31,24 +34,28 @@ export default function TurkeyPage() {
     setCurrent(i);
   }, [current]);
 
-  const stripRef = useRef<HTMLDivElement>(null);
-  const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
-
-  useEffect(() => {
-    thumbRefs.current[current]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-  }, [current]);
-
+  // Main image swipe
   const touchStartX = useRef<number | null>(null);
-
   const onTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   }, []);
-
   const onTouchEnd = useCallback((e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
     const diff = touchStartX.current - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
     touchStartX.current = null;
+  }, [next, prev]);
+
+  // Strip swipe
+  const stripTouchStartX = useRef<number | null>(null);
+  const onStripTouchStart = useCallback((e: React.TouchEvent) => {
+    stripTouchStartX.current = e.touches[0].clientX;
+  }, []);
+  const onStripTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (stripTouchStartX.current === null) return;
+    const diff = stripTouchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 30) diff > 0 ? next() : prev();
+    stripTouchStartX.current = null;
   }, [next, prev]);
 
   useEffect(() => {
@@ -59,6 +66,11 @@ export default function TurkeyPage() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [prev, next]);
+
+  // Compute window of STRIP_COUNT indices centered on current, wrapping
+  const stripIndices = Array.from({ length: STRIP_COUNT }, (_, k) =>
+    ((current - HALF + k) % photos.length + photos.length) % photos.length
+  );
 
   return (
     <div
@@ -101,19 +113,7 @@ export default function TurkeyPage() {
         <button
           onClick={prev}
           aria-label="Previous"
-          style={{
-            position: "absolute",
-            left: "24px",
-            top: "50%",
-            transform: "translateY(-50%)",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            color: "#f5f0e8",
-            opacity: 0.6,
-            padding: "12px",
-            zIndex: 10,
-          }}
+          style={{ position: "absolute", left: "24px", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "#f5f0e8", opacity: 0.6, padding: "12px", zIndex: 10 }}
           onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
           onMouseLeave={e => (e.currentTarget.style.opacity = "0.6")}
         >
@@ -126,19 +126,7 @@ export default function TurkeyPage() {
         <button
           onClick={next}
           aria-label="Next"
-          style={{
-            position: "absolute",
-            right: "24px",
-            top: "50%",
-            transform: "translateY(-50%)",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            color: "#f5f0e8",
-            opacity: 0.6,
-            padding: "12px",
-            zIndex: 10,
-          }}
+          style={{ position: "absolute", right: "24px", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "#f5f0e8", opacity: 0.6, padding: "12px", zIndex: 10 }}
           onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
           onMouseLeave={e => (e.currentTarget.style.opacity = "0.6")}
         >
@@ -148,48 +136,43 @@ export default function TurkeyPage() {
         </button>
       </div>
 
-      {/* Thumbnail strip */}
-      <div style={{
-        position: "relative",
-        width: "100%",
-        maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
-        WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
-      }}>
-        <div
-          ref={stripRef}
-          style={{
-            display: "flex",
-            gap: "8px",
-            padding: "16px 24px",
-            alignItems: "center",
-            overflowX: "auto",
-            width: "100%",
-            scrollbarWidth: "none",
-            justifyContent: "center",
-          }}
-        >
-          {photos.map((src, i) => (
-            <button
-              key={i}
-              ref={el => { thumbRefs.current[i] = el; }}
-              onClick={() => goTo(i)}
-              aria-label={`Go to photo ${i + 1}`}
-              style={{
-                width: i === current ? "48px" : "40px",
-                height: i === current ? "48px" : "40px",
-                padding: 0,
-                border: i === current ? "1.5px solid #f5f0e8" : "1.5px solid transparent",
-                cursor: "pointer",
-                overflow: "hidden",
-                flexShrink: 0,
-                opacity: i === current ? 1 : 0.5,
-                transition: "all 0.2s ease",
-                position: "relative",
-              }}
-            >
-              <Image src={src} alt={`Thumbnail ${i + 1}`} fill style={{ objectFit: "cover" }} />
-            </button>
-          ))}
+      {/* Thumbnail strip — windowed, infinite, centered */}
+      <div
+        onTouchStart={onStripTouchStart}
+        onTouchEnd={onStripTouchEnd}
+        style={{
+          position: "relative",
+          width: "100%",
+          maskImage: "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
+          WebkitMaskImage: "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
+        }}
+      >
+        <div style={{ display: "flex", gap: "8px", padding: "16px 24px", alignItems: "center", justifyContent: "center" }}>
+          {stripIndices.map((photoIdx, slot) => {
+            const isActive = photoIdx === current;
+            return (
+              <motion.button
+                key={`${slot}-${photoIdx}`}
+                layout
+                onClick={() => goTo(photoIdx)}
+                aria-label={`Go to photo ${photoIdx + 1}`}
+                style={{
+                  width: isActive ? "48px" : "40px",
+                  height: isActive ? "48px" : "40px",
+                  padding: 0,
+                  border: isActive ? "1.5px solid #f5f0e8" : "1.5px solid transparent",
+                  cursor: "pointer",
+                  overflow: "hidden",
+                  flexShrink: 0,
+                  opacity: isActive ? 1 : 0.5,
+                  transition: "all 0.2s ease",
+                  position: "relative",
+                }}
+              >
+                <Image src={photos[photoIdx]} alt={`Thumbnail ${photoIdx + 1}`} fill style={{ objectFit: "cover" }} />
+              </motion.button>
+            );
+          })}
         </div>
       </div>
 

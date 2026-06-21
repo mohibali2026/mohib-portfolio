@@ -70,7 +70,7 @@ export default function ThemeToggle() {
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
           </svg>
         ) : (
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="#111111" stroke="none">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#ffffff" stroke="none">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
         )}

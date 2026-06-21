@@ -105,7 +105,7 @@ export default function ExperiencePage() {
             <p className="text-[#888] text-xs tracking-widest uppercase" style={{ marginBottom: "16px" }}>Background</p>
             <h1
               className="font-bold leading-none tracking-tighter text-[#f5f0e8]"
-              style={{ fontSize: "clamp(32px, 4vw, 56px)", marginBottom: "40px" }}
+              style={{ fontSize: "clamp(32px, 4vw, 56px)", marginBottom: "0px" }}
             >
               Work Experience
             </h1>

@@ -10,8 +10,8 @@ export const metadata: Metadata = {
   description:
     "Product designer and creative lead with 7+ years of experience in UX/UI, creative direction, and product management. Based in Istanbul, Türkiye.",
   icons: {
-    icon: "/images/mohib-portrait.png",
-    apple: "/images/mohib-portrait.png",
+    icon: "/images/Browser-icon.jpg",
+    apple: "/images/Browser-icon.jpg",
   },
 };
 

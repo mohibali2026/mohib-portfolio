@@ -101,7 +101,7 @@ export default function ExperiencePage() {
 
         {/* Header */}
         <ScrollReveal>
-          <div className="border-b border-[#222]" style={{ paddingBottom: "40px", marginBottom: "40px" }}>
+          <div className="border-b border-[#222]" style={{ paddingBottom: "40px", marginBottom: "0px" }}>
             <p className="text-[#888] text-xs tracking-widest uppercase" style={{ marginBottom: "16px" }}>Background</p>
             <h1
               className="font-bold leading-none tracking-tighter text-[#f5f0e8]"

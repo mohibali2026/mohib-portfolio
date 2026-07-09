@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 const photos = [
@@ -67,7 +66,6 @@ export default function TurkeyPage() {
     return () => window.removeEventListener("keydown", onKey);
   }, [prev, next]);
 
-  // Compute window of STRIP_COUNT indices centered on current, wrapping
   const stripIndices = Array.from({ length: STRIP_COUNT }, (_, k) =>
     ((current - HALF + k) % photos.length + photos.length) % photos.length
   );
@@ -75,77 +73,72 @@ export default function TurkeyPage() {
   return (
     <div
       onContextMenu={e => e.preventDefault()}
-      style={{ position: "fixed", inset: 0, backgroundColor: "var(--bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", userSelect: "none" }}
+      style={{ position: "fixed", inset: 0, display: "flex", flexDirection: "column", userSelect: "none" }}
     >
       <style>{`
-        .photo-frame img { pointer-events: none; -webkit-user-drag: none; -webkit-touch-callout: none; }
+        img.gallery-img { pointer-events: none; -webkit-user-drag: none; -webkit-touch-callout: none; display: block; max-height: 380px; max-width: 420px; width: auto; height: auto; }
+        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: white; border: 1px solid #D0D0D0; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.12); transition: box-shadow 0.2s ease; z-index: 10; color: #1A1A1A; }
+        .nav-arrow:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.22); }
+        .nav-arrow.left { left: 24px; }
+        .nav-arrow.right { right: 24px; }
+        .gallery-frame { background: #1A1A1A; padding: 14px; display: inline-flex; box-shadow: 0 8px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.12); }
+        .gallery-mat { background: #FAF9F7; padding: 32px; }
+        @media (max-width: 768px) {
+          img.gallery-img { max-height: 220px; max-width: 260px; }
+          .gallery-frame { padding: 10px; }
+          .gallery-mat { padding: 18px; }
+          .nav-arrow { width: 36px; height: 36px; }
+          .nav-arrow.left { left: 8px; }
+          .nav-arrow.right { right: 8px; }
+        }
       `}</style>
 
-      {/* Main image */}
+      {/* Gallery wall */}
       <div
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        style={{ position: "relative", flex: 1, width: "100%", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}
+        style={{ flex: 1, backgroundColor: "#F5F5F5", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", padding: "64px 80px" }}
       >
         <AnimatePresence initial={false} custom={direction.current} mode="popLayout">
           <motion.div
             key={current}
             custom={direction.current}
-            initial={{ x: direction.current * 80, opacity: 0 }}
+            initial={{ x: direction.current * 60, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={{ x: direction.current * -80, opacity: 0 }}
+            exit={{ x: direction.current * -60, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-            className="photo-frame"
-            style={{ position: "absolute", inset: 0 }}
+            style={{ display: "inline-flex" }}
           >
-            <Image
-              src={photos[current]}
-              alt={`Turkey ${current + 1}`}
-              fill
-              draggable={false}
-              style={{ objectFit: "contain", pointerEvents: "none" }}
-              priority
-            />
+            <div className="gallery-frame">
+              <div className="gallery-mat">
+                <img
+                  src={photos[current]}
+                  alt={`Turkey ${current + 1}`}
+                  className="gallery-img"
+                  draggable={false}
+                />
+              </div>
+            </div>
           </motion.div>
         </AnimatePresence>
 
-        {/* Left arrow */}
-        <button
-          onClick={prev}
-          aria-label="Previous"
-          style={{ position: "absolute", left: "24px", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "#f5f0e8", opacity: 0.6, padding: "12px", zIndex: 10 }}
-          onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-          onMouseLeave={e => (e.currentTarget.style.opacity = "0.6")}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <button className="nav-arrow left" onClick={prev} aria-label="Previous">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
             <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
-
-        {/* Right arrow */}
-        <button
-          onClick={next}
-          aria-label="Next"
-          style={{ position: "absolute", right: "24px", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "#f5f0e8", opacity: 0.6, padding: "12px", zIndex: 10 }}
-          onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-          onMouseLeave={e => (e.currentTarget.style.opacity = "0.6")}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <button className="nav-arrow right" onClick={next} aria-label="Next">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
             <path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
       </div>
 
-      {/* Thumbnail strip — windowed, infinite, centered */}
+      {/* Thumbnail strip */}
       <div
         onTouchStart={onStripTouchStart}
         onTouchEnd={onStripTouchEnd}
-        style={{
-          position: "relative",
-          width: "100%",
-          maskImage: "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
-          WebkitMaskImage: "linear-gradient(to right, transparent, black 12%, black 88%, transparent)",
-        }}
+        style={{ position: "relative", width: "100%", backgroundColor: "var(--bg)", maskImage: "linear-gradient(to right, transparent, black 12%, black 88%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 12%, black 88%, transparent)" }}
       >
         <div style={{ display: "flex", gap: "8px", padding: "16px 24px", alignItems: "center", justifyContent: "center" }}>
           {stripIndices.map((photoIdx, slot) => {
@@ -156,26 +149,14 @@ export default function TurkeyPage() {
                 layout
                 onClick={() => goTo(photoIdx)}
                 aria-label={`Go to photo ${photoIdx + 1}`}
-                style={{
-                  width: isActive ? "48px" : "40px",
-                  height: isActive ? "48px" : "40px",
-                  padding: 0,
-                  border: isActive ? "1.5px solid #f5f0e8" : "1.5px solid transparent",
-                  cursor: "pointer",
-                  overflow: "hidden",
-                  flexShrink: 0,
-                  opacity: isActive ? 1 : 0.5,
-                  transition: "all 0.2s ease",
-                  position: "relative",
-                }}
+                style={{ width: isActive ? "48px" : "40px", height: isActive ? "48px" : "40px", padding: 0, border: isActive ? "1.5px solid #f5f0e8" : "1.5px solid transparent", cursor: "pointer", overflow: "hidden", flexShrink: 0, opacity: isActive ? 1 : 0.5, transition: "all 0.2s ease", position: "relative", backgroundColor: "transparent" }}
               >
-                <Image src={photos[photoIdx]} alt={`Thumbnail ${photoIdx + 1}`} fill style={{ objectFit: "cover" }} />
+                <img src={photos[photoIdx]} alt="" draggable={false} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", pointerEvents: "none" }} />
               </motion.button>
             );
           })}
         </div>
       </div>
-
     </div>
   );
 }

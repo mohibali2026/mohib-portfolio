@@ -40,7 +40,7 @@ export default function BibinHero() {
         .fan-scaler {
           width: 100%;
           height: 325px;
-          margin-bottom: 32px;
+          margin-bottom: 24px;
           display: flex;
           justify-content: center;
           align-items: flex-start;
@@ -141,6 +141,12 @@ export default function BibinHero() {
         @media (max-width: 600px) {
           .fan-scaler { height: 152px; margin-bottom: 20px; }
           .fan-container { transform: scale(0.4); transform-origin: center top; }
+          /* Mobile only: pull the fan tighter (step 190px -> 170px). Overrides the JS inline left. */
+          .fan-card-wrap:nth-child(1) { left: calc(50% - 450px) !important; }
+          .fan-card-wrap:nth-child(2) { left: calc(50% - 280px) !important; }
+          .fan-card-wrap:nth-child(3) { left: calc(50% - 110px) !important; }
+          .fan-card-wrap:nth-child(4) { left: calc(50% + 60px) !important; }
+          .fan-card-wrap:nth-child(5) { left: calc(50% + 230px) !important; }
         }
       `}</style>
 

@@ -118,7 +118,7 @@ export default function ExperiencePage() {
             <ScrollReveal key={`${job.company}-${i}`} delay={i * 0.05}>
               <div className="border-b border-[#222] grid md:grid-cols-2" style={{ padding: "40px 0", gap: "24px" }}>
                 <div className="flex flex-col lg:flex-row lg:items-center gap-4">
-                  <div style={{ width: "48px", height: "48px", flexShrink: 0, overflow: "hidden" }}>
+                  <div style={{ width: "48px", height: "48px", flexShrink: 0, overflow: "hidden", borderRadius: "12px" }}>
                     {job.logo ? (
                       <Image
                         src={job.logo}

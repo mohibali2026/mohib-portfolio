@@ -19,7 +19,7 @@ export default function Home() {
           .home-gap-sm { margin-bottom: 48px; }
           .home-gap-md { margin-bottom: 10px; }
         }
-        .home-img { width: 230px; height: 320px; margin-bottom: 8px; }
+        .home-img { width: 230px; height: 320px; margin-bottom: 8px; border-radius: 24px; }
         @media (min-width: 768px) { .home-img { width: 300px; height: 380px; } }
         @media (min-width: 1024px) { .home-img { width: 320px; height: 400px; margin-bottom: 0; align-self: center; } }
         .home-wrap { padding: 120px 40px 80px 40px; }

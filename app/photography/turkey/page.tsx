@@ -16,12 +16,11 @@ const HALF = Math.floor(STRIP_COUNT / 2);
 
 export default function TurkeyPage() {
   const [current, setCurrent] = useState(0);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const loadedSet = useRef<Set<number>>(new Set());
+  const [, forceRender] = useState(0);
   const direction = useRef(0);
 
-  // Reset loaded state and preload adjacent images whenever current changes
   useEffect(() => {
-    setImageLoaded(false);
     const preload = (src: string) => { const img = new window.Image(); img.src = src; };
     preload(photos[(current + 1) % photos.length]);
     preload(photos[(current - 1 + photos.length) % photos.length]);
@@ -107,7 +106,7 @@ export default function TurkeyPage() {
             key={current}
             custom={direction.current}
             initial={{ x: direction.current * 60, opacity: 0 }}
-            animate={{ x: 0, opacity: imageLoaded ? 1 : 0 }}
+            animate={{ x: 0, opacity: loadedSet.current.has(current) ? 1 : 0 }}
             exit={{ x: direction.current * -60, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             style={{ display: "inline-flex" }}
@@ -119,7 +118,7 @@ export default function TurkeyPage() {
                   alt={`Turkey ${current + 1}`}
                   className="gallery-img"
                   draggable={false}
-                  onLoad={() => setImageLoaded(true)}
+                  onLoad={() => { loadedSet.current.add(current); forceRender(n => n + 1); }}
                 />
               </div>
             </div>

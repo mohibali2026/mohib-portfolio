@@ -16,7 +16,7 @@ const links = [
     ],
   },
   { href: "/bibin", label: "Bibin" },
-  { href: "/contact", label: "Contact" },
+  { href: "/contact", label: "Contact" }, // nav order: About · Resume · Photography · Bibin · Contact
 ];
 
 function HamburgerIcon({ open }: { open: boolean }) {

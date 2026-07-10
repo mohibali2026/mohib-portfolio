@@ -24,14 +24,9 @@ const fanIssues = [
   { number: 5, href: "https://www.bibinmagazine.com/magazine/issue-5", img: "/images/bibin/issue-5.jpg" },
 ];
 
-// rotate, yOffset (down), zIndex
-const FAN = [
-  { rotate: -22, y: 50, z: 1 },
-  { rotate: -11, y: 18, z: 2 },
-  { rotate:   0, y:  0, z: 3 },
-  { rotate:  11, y: 18, z: 2 },
-  { rotate:  22, y: 50, z: 1 },
-];
+// angles for fan — all cards pivot from a shared bottom-center vanishing point
+const FAN_ANGLES = [-36, -18, 0, 18, 36];
+const FAN_Z      = [1, 2, 3, 2, 1];
 
 export default function BibinHero() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -74,17 +69,19 @@ export default function BibinHero() {
         .fan-container {
           position: relative;
           width: 100%;
-          max-width: 1000px;
-          height: 340px;
+          max-width: 1100px;
+          height: 400px;
           margin-bottom: 112px;
           flex-shrink: 0;
         }
         .fan-card {
           position: absolute;
           bottom: 0;
-          width: 180px;
+          left: 50%;
+          width: 220px;
           text-decoration: none;
           display: block;
+          transform-origin: bottom center;
           transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.35s ease;
         }
         .fan-card-img {
@@ -177,8 +174,8 @@ export default function BibinHero() {
         @keyframes bSlideUp { from { opacity: 0; transform: translateY(20px) } to { opacity: 1; transform: translateY(0) } }
 
         @media (max-width: 768px) {
-          .fan-container { height: 200px; margin-bottom: 40px; }
-          .fan-card { width: 100px; }
+          .fan-container { height: 220px; margin-bottom: 60px; }
+          .fan-card { width: 90px; }
           .bibin-hero { padding: 60px 24px 48px; }
         }
       `}</style>
@@ -187,9 +184,8 @@ export default function BibinHero() {
         {/* Fan of magazines */}
         <div className="fan-container">
           {fanIssues.map((issue, i) => {
-            const { rotate, y, z } = FAN[i];
+            const angle = FAN_ANGLES[i];
             const isHov = hovered === i;
-            const xOffset = (i - 2) * 160; // spacing between cards
 
             return (
               <a
@@ -201,9 +197,8 @@ export default function BibinHero() {
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
                 style={{
-                  left: `calc(50% + ${xOffset}px)`,
-                  transform: `translateX(-50%) rotate(${rotate}deg) translateY(${isHov ? y - 24 : y}px)`,
-                  zIndex: isHov ? 10 : z,
+                  transform: `translateX(-50%) rotate(${angle}deg)${isHov ? " translateY(-28px)" : ""}`,
+                  zIndex: isHov ? 10 : FAN_Z[i],
                   boxShadow: isHov
                     ? "0 24px 60px rgba(0,0,0,0.45), 0 8px 24px rgba(0,0,0,0.25)"
                     : "0 8px 32px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.15)",

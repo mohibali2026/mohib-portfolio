@@ -19,7 +19,7 @@ export default function Home() {
           .home-gap-sm { margin-bottom: 48px; }
           .home-gap-md { margin-bottom: 10px; }
         }
-        .home-img { width: 230px; height: 320px; margin-bottom: 8px; border-radius: 24px; }
+        .home-img { width: 230px; height: 320px; margin-bottom: 8px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 6px 16px rgba(0,0,0,0.22); }
         @media (min-width: 768px) { .home-img { width: 300px; height: 380px; } }
         @media (min-width: 1024px) { .home-img { width: 320px; height: 400px; margin-bottom: 0; align-self: center; } }
         .home-wrap { padding: 120px 40px 80px 40px; }
@@ -46,10 +46,6 @@ export default function Home() {
 
         {/* TEXT , below image on mobile, left on desktop */}
         <div className="home-text order-2 lg:order-1">
-          <p className="hidden lg:block text-[#888] text-xs tracking-[0.2em] home-gap-md">
-            Designer, Photographer & Poet
-          </p>
-
           <h1
             className="font-bold leading-none tracking-tighter text-[#f5f0e8] home-gap-md home-name"
             style={{ fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' }}
@@ -62,7 +58,10 @@ export default function Home() {
           </p>
 
           <p className="text-[#f5f0e8]/60 text-sm leading-relaxed max-w-sm lg:max-w-xl home-gap-sm">
-            Mohib, a designer, art photographer & poet from Afghanistan, currently based in Istanbul, Türkiye. Over the past 9+ years, he has led product and creative work across e-commerce, humanitarian technology, and editorial media, most notably at Aseel, where he shaped platforms spanning an online handmade marketplace, humanitarian aid distribution and fundraising. He is the founder of Bibin Photography Magazine, a triannual publication celebrating and interpreting contemporary and fine art photography. His photographic work has been exhibited in Austria, Malaysia, the USA, and Afghanistan, and featured in international publications. Earlier in his career he worked as a journalist and photojournalist at Khaama Press News Agency, one of Afghanistan's leading English-language outlets.
+            Mohib, a designer, art photographer & poet from Afghanistan, currently based in Istanbul, Türkiye. Over the past 9+ years, he has led product and creative work across e-commerce, humanitarian technology, and editorial media, most notably at{" "}
+            <a href="https://aseelapp.com" target="_blank" rel="noopener noreferrer" className="text-[#f5f0e8]/90 underline underline-offset-2 hover:text-[#f5f0e8] transition-colors">Aseel</a>, where he shaped platforms spanning an online handmade marketplace, humanitarian aid distribution and fundraising. He is the founder of{" "}
+            <a href="https://bibinmagazine.com" target="_blank" rel="noopener noreferrer" className="text-[#f5f0e8]/90 underline underline-offset-2 hover:text-[#f5f0e8] transition-colors">Bibin Photography Magazine</a>, a triannual publication celebrating and interpreting contemporary and fine art photography. His photographic work has been exhibited in Austria, Malaysia, the USA, and Afghanistan, and featured in international publications. Earlier in his career he worked as a journalist and photojournalist at{" "}
+            <a href="https://khaama.com" target="_blank" rel="noopener noreferrer" className="text-[#f5f0e8]/90 underline underline-offset-2 hover:text-[#f5f0e8] transition-colors">Khaama Press News Agency</a>, one of Afghanistan's leading English-language outlets.
           </p>
 
           <div className="flex items-center gap-5">

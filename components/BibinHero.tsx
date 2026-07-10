@@ -24,8 +24,8 @@ const fanIssues = [
   { number: 5, href: "https://www.bibinmagazine.com/magazine/issue-5", img: "/images/bibin/issue-5.jpg" },
 ];
 
-// angles for fan — all cards pivot from a shared bottom-center vanishing point
-const FAN_ANGLES = [-36, -18, 0, 18, 36];
+// angles for fan — shared pivot far below, matching the hand-held card spread
+const FAN_ANGLES = [-42, -21, 0, 21, 42];
 const FAN_Z      = [1, 2, 3, 2, 1];
 
 export default function BibinHero() {
@@ -69,26 +69,27 @@ export default function BibinHero() {
         .fan-container {
           position: relative;
           width: 100%;
-          max-width: 1100px;
-          height: 400px;
-          margin-bottom: 112px;
+          height: 380px;
+          margin-bottom: 100px;
           flex-shrink: 0;
+          overflow: visible;
         }
         .fan-card {
           position: absolute;
-          top: 20px;
+          top: 0;
           left: 50%;
-          width: 220px;
+          width: 260px;
           text-decoration: none;
           display: block;
-          transform-origin: center 400px;
+          transform-origin: center 320px;
           transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.35s ease;
         }
         .fan-card-img {
           width: 100%;
-          aspect-ratio: 1 / 1;
+          aspect-ratio: 3 / 4;
           overflow: hidden;
           position: relative;
+          border-radius: 8px;
         }
         .fan-card-img img {
           width: 100%; height: 100%;
@@ -178,7 +179,7 @@ export default function BibinHero() {
 
         @media (max-width: 768px) {
           .fan-container { height: 220px; margin-bottom: 60px; }
-          .fan-card { width: 90px; }
+          .fan-card { width: 110px; transform-origin: center 200px; }
           .bibin-hero { padding: 60px 24px 48px; }
         }
       `}</style>

@@ -116,7 +116,7 @@ export default function BnwMinimalismPage() {
         .nav-arrow:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.22); }
         .nav-arrow.left { left: 24px; }
         .nav-arrow.right { right: 24px; }
-        .gallery-frame { background: #1A1A1A; padding: 14px; display: inline-flex; box-shadow: 0 8px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.12); }
+        .gallery-frame { background: #6B4226; padding: 14px; display: inline-flex; box-shadow: 0 8px 40px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.16); }
         .gallery-mat { background: #FAF9F7; padding: 32px; }
         @media (max-width: 768px) {
           img.gallery-img { max-height: 220px; max-width: 260px; }

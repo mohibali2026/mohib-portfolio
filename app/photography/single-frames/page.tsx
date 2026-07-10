@@ -14,7 +14,7 @@ const photos = [
 const STRIP_COUNT = Math.min(10, photos.length);
 const HALF = Math.floor(STRIP_COUNT / 2);
 
-export default function TurkeyPage() {
+export default function SingleFramesPage() {
   const [current, setCurrent] = useState(0);
   const loadedSet = useRef<Set<number>>(new Set());
   const [, forceRender] = useState(0);
@@ -99,7 +99,7 @@ export default function TurkeyPage() {
       <div
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        style={{ flex: 1, backgroundColor: "#F5F5F5", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", padding: "64px 80px" }}
+        style={{ flex: 1, backgroundColor: "var(--gallery-wall)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", padding: "64px 80px" }}
       >
         <AnimatePresence initial={false} custom={direction.current} mode="popLayout">
           <motion.div
@@ -115,7 +115,7 @@ export default function TurkeyPage() {
               <div className="gallery-mat">
                 <img
                   src={photos[current]}
-                  alt={`Turkey ${current + 1}`}
+                  alt={`Single Frames ${current + 1}`}
                   className="gallery-img"
                   draggable={false}
                   onLoad={() => { loadedSet.current.add(current); forceRender(n => n + 1); }}

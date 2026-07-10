@@ -8,6 +8,7 @@
   --text-primary: #f5f0e8;
   --text-secondary: #888888;
   --border: #222222;
+  --gallery-wall: #1C1917;
 }
 
 /* Light mode */
@@ -17,6 +18,7 @@
   --text-primary: #0a0a0a;
   --text-secondary: #555555;
   --border: #d0cbc2;
+  --gallery-wall: #F6F0E7;
 }
 
 * {

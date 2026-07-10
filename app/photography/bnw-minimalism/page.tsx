@@ -47,7 +47,7 @@ const photos = [
 const STRIP_COUNT = 10;
 const HALF = Math.floor(STRIP_COUNT / 2);
 
-export default function MinimalismPage() {
+export default function BnwMinimalismPage() {
   const [current, setCurrent] = useState(0);
   const loadedSet = useRef<Set<number>>(new Set());
   const [, forceRender] = useState(0);
@@ -132,7 +132,7 @@ export default function MinimalismPage() {
       <div
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        style={{ flex: 1, backgroundColor: "#F5F5F5", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", padding: "64px 80px" }}
+        style={{ flex: 1, backgroundColor: "var(--gallery-wall)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", padding: "64px 80px" }}
       >
         <AnimatePresence initial={false} custom={direction.current} mode="popLayout">
           <motion.div
@@ -148,7 +148,7 @@ export default function MinimalismPage() {
               <div className="gallery-mat">
                 <img
                   src={photos[current]}
-                  alt={`Minimalism ${current + 1}`}
+                  alt={`bnw minimalism ${current + 1}`}
                   className="gallery-img"
                   draggable={false}
                   onLoad={() => { loadedSet.current.add(current); forceRender(n => n + 1); }}

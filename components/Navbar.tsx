@@ -12,8 +12,8 @@ const links = [
     href: "/photography",
     label: "Photography",
     children: [
-      { href: "/photography/turkey", label: "Turkey" },
-      { href: "/photography/minimalism", label: "Minimalism" },
+      { href: "/photography/single-frames", label: "Single Frames" },
+      { href: "/photography/bnw-minimalism", label: "bnw minimalism" },
     ],
   },
   { href: "/contact", label: "Contact" },

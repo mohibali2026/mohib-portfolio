@@ -3,8 +3,8 @@
 
 /* Dark mode (default) */
 :root, [data-theme="dark"] {
-  --bg: #0a0a0a;
-  --surface: #111111;
+  --bg: #1C1917;
+  --surface: #252220;
   --text-primary: #f5f0e8;
   --text-secondary: #888888;
   --border: #222222;

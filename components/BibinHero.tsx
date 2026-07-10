@@ -106,6 +106,9 @@ export default function BibinHero() {
           overflow: hidden;
           position: relative;
           border-radius: 20px;
+          transform: translateZ(0);
+          -webkit-mask-image: -webkit-radial-gradient(white, black);
+          mask-image: radial-gradient(white, black);
         }
         .fan-card-img img {
           width: 100%; height: 100%;

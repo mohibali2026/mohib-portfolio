@@ -1,6 +1,9 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { DM_Serif_Display } from "next/font/google";
+
+const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 
 const paragraphs = [
   <>In Persian, <em>Bibin</em> is an imperative verb meaning "see," "watch," or "look." It is used to ask or invite someone to look at something, emphasizing the significance of the act of seeing.</>,
@@ -65,15 +68,15 @@ export default function BibinHero() {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          padding: 80px 24px 60px;
+          padding: 40px 24px 80px;
           gap: 0;
         }
         .fan-container {
           position: relative;
           width: 100%;
-          max-width: 900px;
+          max-width: 1000px;
           height: 340px;
-          margin-bottom: 56px;
+          margin-bottom: 112px;
           flex-shrink: 0;
         }
         .fan-card {
@@ -144,6 +147,7 @@ export default function BibinHero() {
           display: inline-block;
         }
         .btn-fill:hover { opacity: 0.8; }
+        [data-theme="light"] .btn-fill { color: #ffffff; }
 
         /* Modal */
         .modal-overlay {
@@ -185,7 +189,7 @@ export default function BibinHero() {
           {fanIssues.map((issue, i) => {
             const { rotate, y, z } = FAN[i];
             const isHov = hovered === i;
-            const xOffset = (i - 2) * 130; // spacing between cards
+            const xOffset = (i - 2) * 160; // spacing between cards
 
             return (
               <a
@@ -215,7 +219,7 @@ export default function BibinHero() {
         </div>
 
         {/* Title */}
-        <h1 className="bibin-title">Bibin Photography Magazine</h1>
+        <h1 className={`bibin-title ${dmSerif.className}`}>Bibin Photography Magazine</h1>
 
         {/* Buttons */}
         <div className="bibin-btns">

@@ -21,13 +21,13 @@ const fanIssues = [
   { number: 5, href: "https://www.bibinmagazine.com/magazine/issue-5", img: "/images/bibin/issue-5.jpg" },
 ];
 
-// rotate, yOffset (down), zIndex
+// rotate, yOffset (down), zIndex — 5th card on top, each sits above the one to its left
 const FAN = [
   { rotate: -22, y: 50, z: 1 },
   { rotate: -11, y: 18, z: 2 },
   { rotate:   0, y:  0, z: 3 },
-  { rotate:  11, y: 18, z: 2 },
-  { rotate:  22, y: 50, z: 1 },
+  { rotate:  11, y: 18, z: 4 },
+  { rotate:  22, y: 50, z: 5 },
 ];
 
 export default function BibinHero() {
@@ -89,6 +89,7 @@ export default function BibinHero() {
           aspect-ratio: 1 / 1;
           overflow: hidden;
           position: relative;
+          border-radius: 20px;
         }
         .fan-card-img img {
           width: 100%; height: 100%;

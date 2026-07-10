@@ -16,11 +16,11 @@ const fanIssues = [
 // Total composition width: 4×190 + 220 = 980px, centered in the 1060px container.
 const CARD_SIZE = 220;
 const CARDS = [
-  { rotate: -15, top: 100, left: -490, z: 1 },
+  { rotate: -15, top:  80, left: -490, z: 1 },
   { rotate:  -7, top:  45, left: -300, z: 2 },
   { rotate:   0, top:  30, left: -110, z: 3 },
   { rotate:   7, top:  45, left:   80, z: 4 },
-  { rotate:  15, top: 100, left:  270, z: 5 },
+  { rotate:  15, top:  80, left:  270, z: 5 },
 ];
 
 export default function BibinHero() {
@@ -39,7 +39,7 @@ export default function BibinHero() {
         /* fan-scaler controls flow height; fan-container holds absolute cards */
         .fan-scaler {
           width: 100%;
-          height: 345px;
+          height: 325px;
           margin-bottom: 32px;
           display: flex;
           justify-content: center;

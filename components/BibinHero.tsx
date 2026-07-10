@@ -25,15 +25,15 @@ const fanIssues = [
 ];
 
 // Layered diagonal cascade — LOW→MID→HIGH→MID→LOW arch, each card on top of previous
-// Card size: 220px square. Step = 210px (~5% overlap) for visible spacing between cards.
-// Total composition width: 4×210 + 220 = 1060px → center offset = 530px
+// Card size: 220px square. Step = 190px (~14% overlap) — cards sit closer together.
+// Total composition width: 4×190 + 220 = 980px, centered in the 1060px container.
 const CARD_SIZE = 220;
 const CARDS = [
-  { rotate: -15, top: 100, left: -530, z: 1 },
-  { rotate:  -7, top:  45, left: -320, z: 2 },
-  { rotate:   0, top:   0, left: -110, z: 3 },
-  { rotate:   7, top:  45, left:  100, z: 4 },
-  { rotate:  15, top: 100, left:  310, z: 5 },
+  { rotate: -15, top: 100, left: -490, z: 1 },
+  { rotate:  -7, top:  45, left: -300, z: 2 },
+  { rotate:   0, top:  16, left: -110, z: 3 },
+  { rotate:   7, top:  45, left:   80, z: 4 },
+  { rotate:  15, top: 100, left:  270, z: 5 },
 ];
 
 export default function BibinHero() {
@@ -77,7 +77,7 @@ export default function BibinHero() {
         .fan-scaler {
           width: 100%;
           height: 380px;
-          margin-bottom: 80px;
+          margin-bottom: 48px;
           display: flex;
           justify-content: center;
           align-items: flex-start;
@@ -123,8 +123,9 @@ export default function BibinHero() {
         }
         .bibin-title {
           font-size: clamp(28px, 4vw, 56px);
-          font-weight: 700;
-          letter-spacing: -0.03em;
+          font-weight: 400;
+          font-synthesis: none;
+          letter-spacing: 0.01em;
           line-height: 1;
           text-align: center;
           color: var(--text-primary);
@@ -198,11 +199,11 @@ export default function BibinHero() {
         @keyframes bSlideUp { from { opacity: 0; transform: translateY(20px) } to { opacity: 1; transform: translateY(0) } }
 
         @media (max-width: 1024px) {
-          .fan-scaler { height: 247px; margin-bottom: 52px; }
+          .fan-scaler { height: 247px; margin-bottom: 32px; }
           .fan-container { transform: scale(0.65); transform-origin: center top; }
         }
         @media (max-width: 600px) {
-          .fan-scaler { height: 152px; margin-bottom: 32px; }
+          .fan-scaler { height: 152px; margin-bottom: 20px; }
           .fan-container { transform: scale(0.4); transform-origin: center top; }
         }
       `}</style>

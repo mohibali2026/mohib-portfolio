@@ -9,10 +9,12 @@ interface Props {
   glow: string;
   rating: number;
   index: number;
+  showHover?: boolean;
 }
 
-export default function LanguageCard({ name, nativeName, desc, nativeDesc, glow, rating, index }: Props) {
+export default function LanguageCard({ name, nativeName, desc, nativeDesc, glow, rating, index, showHover = true }: Props) {
   const [hovered, setHovered] = useState(false);
+  const active = hovered && showHover;
 
   const isRTL = nativeName === "فارسی" || nativeName === "اوردو" || nativeName === "پښتو";
 
@@ -29,14 +31,14 @@ export default function LanguageCard({ name, nativeName, desc, nativeDesc, glow,
         <div style={{ display: "grid", marginBottom: "8px" }}>
           <p
             className="font-semibold text-[#f5f0e8]"
-            style={{ gridArea: "1/1", fontSize: "16px", opacity: hovered && nativeName ? 0 : 1, transition: "opacity 0.2s ease" }}
+            style={{ gridArea: "1/1", fontSize: "16px", opacity: active && nativeName ? 0 : 1, transition: "opacity 0.2s ease" }}
           >
             {name}
           </p>
           {nativeName && (
             <p
               className="font-semibold text-[#f5f0e8]"
-              style={{ gridArea: "1/1", fontSize: "16px", opacity: hovered ? 1 : 0, transition: "opacity 0.2s ease", direction: isRTL ? "rtl" : "ltr", textAlign: isRTL ? "right" : "left" }}
+              style={{ gridArea: "1/1", fontSize: "16px", opacity: active ? 1 : 0, transition: "opacity 0.2s ease", direction: isRTL ? "rtl" : "ltr", textAlign: isRTL ? "right" : "left" }}
             >
               {nativeName}
             </p>
@@ -47,14 +49,14 @@ export default function LanguageCard({ name, nativeName, desc, nativeDesc, glow,
         <div style={{ display: "grid", flex: 1, marginBottom: "16px" }}>
           <p
             className="text-[#888] text-sm leading-relaxed"
-            style={{ gridArea: "1/1", opacity: hovered && nativeDesc ? 0 : 1, transition: "opacity 0.2s ease" }}
+            style={{ gridArea: "1/1", opacity: active && nativeDesc ? 0 : 1, transition: "opacity 0.2s ease" }}
           >
             {desc}
           </p>
           {nativeDesc && (
             <p
               className="text-[#888] text-sm leading-relaxed"
-              style={{ gridArea: "1/1", opacity: hovered ? 1 : 0, transition: "opacity 0.2s ease", direction: isRTL ? "rtl" : "ltr", textAlign: isRTL ? "right" : "left" }}
+              style={{ gridArea: "1/1", opacity: active ? 1 : 0, transition: "opacity 0.2s ease", direction: isRTL ? "rtl" : "ltr", textAlign: isRTL ? "right" : "left" }}
             >
               {nativeDesc}
             </p>

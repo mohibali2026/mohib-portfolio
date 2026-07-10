@@ -158,17 +158,7 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <div className="nav-desktop" style={{ paddingTop: "40px", paddingBottom: "20px", justifyContent: "center" }}>
-          {links.map((l) => l.external ? (
-            <a
-              key={l.href}
-              href={l.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm tracking-wider transition-all duration-200 text-[#888] hover:text-[#f5f0e8] hover:tracking-widest"
-            >
-              {l.label}
-            </a>
-          ) : l.children ? (
+          {links.map((l) => l.children ? (
             <div key={l.href} className="relative group">
               <span
                 className={`text-sm tracking-wider transition-all duration-200 cursor-default inline-flex items-center gap-1 ${
@@ -301,16 +291,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.07 + 0.1 }}
                 >
-                  {l.external ? (
-                    <a
-                      href={l.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-2xl font-semibold tracking-tight transition-colors block text-[#444] hover:text-[#f5f0e8]"
-                    >
-                      {l.label}
-                    </a>
-                  ) : l.children ? (
+                  {l.children ? (
                     <div>
                       <button
                         onClick={() => setExpandedMobile(expandedMobile === l.href ? null : l.href)}

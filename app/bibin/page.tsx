@@ -129,8 +129,7 @@ export default function BibinPage() {
 
           {/* Left — sticky text */}
           <div style={{ position: "sticky", top: "120px" }}>
-            <p style={{ color: "var(--text-secondary)", fontSize: "12px", letterSpacing: "0.05em", marginBottom: "16px" }}>Magazine</p>
-            <h1
+<h1
               className="font-bold leading-none tracking-tighter"
               style={{ fontSize: "clamp(28px, 3vw, 48px)", marginBottom: "40px", color: "var(--text-primary)" }}
             >

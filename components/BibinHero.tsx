@@ -133,8 +133,8 @@ export default function BibinHero() {
         }
         .btn-fill {
           padding: 12px 28px;
-          background: var(--text-primary);
-          color: var(--bg);
+          background: #0a0a0a;
+          color: #ffffff;
           font-size: 13px;
           letter-spacing: 0.04em;
           cursor: pointer;
@@ -143,8 +143,11 @@ export default function BibinHero() {
           text-decoration: none;
           display: inline-block;
         }
+        [data-theme="dark"] .btn-fill {
+          background: #f5f0e8;
+          color: #1C1917;
+        }
         .btn-fill:hover { opacity: 0.8; }
-        [data-theme="light"] .btn-fill { color: #ffffff; }
 
         /* Modal */
         .modal-overlay {

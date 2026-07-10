@@ -139,22 +139,29 @@ export default function BnwMinimalismPage() {
             key={current}
             custom={direction.current}
             initial={{ x: direction.current * 60, opacity: 0 }}
-            animate={{ x: 0, opacity: loadedSet.current.has(current) ? 1 : 0 }}
+            animate={{ x: 0, opacity: 1 }}
             exit={{ x: direction.current * -60, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             style={{ display: "inline-flex" }}
           >
-            <div className="gallery-frame">
-              <div className="gallery-mat">
-                <img
-                  src={photos[current]}
-                  alt={`bnw minimalism ${current + 1}`}
-                  className="gallery-img"
-                  draggable={false}
-                  onLoad={() => { loadedSet.current.add(current); forceRender(n => n + 1); }}
-                />
+            <img
+              key={photos[current]}
+              src={photos[current]}
+              style={{ display: "none" }}
+              onLoad={() => { loadedSet.current.add(current); forceRender(n => n + 1); }}
+            />
+            {loadedSet.current.has(current) && (
+              <div className="gallery-frame">
+                <div className="gallery-mat">
+                  <img
+                    src={photos[current]}
+                    alt={`bnw minimalism ${current + 1}`}
+                    className="gallery-img"
+                    draggable={false}
+                  />
+                </div>
               </div>
-            </div>
+            )}
           </motion.div>
         </AnimatePresence>
 

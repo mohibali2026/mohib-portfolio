@@ -29,9 +29,15 @@ export default function BibinPage() {
             >
               Bibin Photography Magazine
             </h1>
-            <p style={{ color: "var(--text-secondary)", fontSize: "16px", lineHeight: "1.7", maxWidth: "600px" }}>
-              Placeholder — a description of Bibin and its vision will go here.
-            </p>
+            <div style={{ color: "var(--text-secondary)", fontSize: "15px", lineHeight: "1.8", maxWidth: "680px", display: "flex", flexDirection: "column", gap: "20px" }}>
+              <p>In Persian, <em>Bibin</em> is an imperative verb meaning "see," "watch," or "look." It is used to ask or invite someone to look at something, emphasizing the significance of the act of seeing.</p>
+              <p>If we accept that seeing always precedes thinking and creating, then photography, as an art form, embodies both this claim and its possibilities. It is a space for seeing, imagining, thinking, and creating; an opportunity to observe, discover, and express new ideas, experiences, performances, and perceptions.</p>
+              <p>In each issue of the quarterly magazine, a guest writer from the fields of art or the humanities engages with the selected photographs through critical reading and interpretation. Through this approach, we seek to create connections between photography and other fields of art and knowledge.</p>
+              <p>Bibin Photography Magazine focuses on the selection and critical reading of contemporary and fine-art photography by discovering and introducing photographers, collecting their works, interpreting them, and publishing them in both print and online formats.</p>
+              <p>The openness of meaning in contemporary and fine-art photography reflects the ways in which art engages with the human lifeworld, cultivating and welcoming the new: new possibilities, new worlds, and new ways of being human. Following this idea, Bibin seeks to look deeply at photographs and read them closely, establishing renewed connections between photography and disciplinary and interdisciplinary fields within the humanities and social sciences.</p>
+              <p>Bibin Photography Magazine is published quarterly, every three months, in Persian and English. Each issue features 20 selected photographs by photographers from Afghanistan and around the world. The works are selected through an open call and presented in the magazine alongside analytical readings and interpretations.</p>
+              <p>Photographs are collected through open calls published on the Bibin Photography Magazine website, and photographers from anywhere in the world are welcome to submit their work. In the first stage of the selection process, the editor-in-chief and editorial board select 40 to 50 photographs that correspond to the analytical approach of the issue. This selection is then shared with the guest writer, who participates in the final selection of 20 photographs for publication in the magazine.</p>
+            </div>
           </div>
         </ScrollReveal>
 

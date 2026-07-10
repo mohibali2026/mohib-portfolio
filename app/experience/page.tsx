@@ -102,7 +102,6 @@ export default function ExperiencePage() {
         {/* Header */}
         <ScrollReveal>
           <div className="border-b border-[#222]" style={{ paddingBottom: "40px", marginBottom: "0px" }}>
-            <p className="text-[#888] text-xs tracking-widest" style={{ marginBottom: "16px" }}>Background</p>
             <h1
               className="font-bold leading-none tracking-tighter text-[#f5f0e8]"
               style={{ fontSize: "clamp(32px, 4vw, 56px)", marginBottom: "0px" }}
@@ -118,7 +117,7 @@ export default function ExperiencePage() {
             <ScrollReveal key={`${job.company}-${i}`} delay={i * 0.05}>
               <div className="border-b border-[#222] grid md:grid-cols-2" style={{ padding: "40px 0", gap: "24px" }}>
                 <div className="flex flex-col lg:flex-row lg:items-center gap-4">
-                  <div style={{ width: "48px", height: "48px", flexShrink: 0, overflow: "hidden", borderRadius: "12px" }}>
+                  <div style={{ width: "48px", height: "48px", flexShrink: 0, overflow: "hidden", borderRadius: "12px", boxShadow: "0 4px 10px rgba(0,0,0,0.28), 0 1px 3px rgba(0,0,0,0.18)" }}>
                     {job.logo ? (
                       <Image
                         src={job.logo}
@@ -235,7 +234,6 @@ export default function ExperiencePage() {
 
         <div style={{ marginTop: "80px", marginBottom: "60px" }}>
           <ScrollReveal>
-            <p className="text-[#888] text-xs tracking-widest" style={{ marginBottom: "16px" }}>Strengths</p>
             <h2
               className="font-bold leading-none tracking-tighter text-[#f5f0e8]"
               style={{ fontSize: "clamp(32px, 4vw, 56px)", marginBottom: "40px" }}
@@ -296,7 +294,6 @@ export default function ExperiencePage() {
         {/* Languages */}
         <div style={{ marginTop: "80px", marginBottom: "60px" }}>
           <ScrollReveal>
-            <p className="text-[#888] text-xs tracking-widest" style={{ marginBottom: "16px" }}>Communication</p>
             <h2
               className="font-bold leading-none tracking-tighter text-[#f5f0e8]"
               style={{ fontSize: "clamp(32px, 4vw, 56px)", marginBottom: "40px" }}

@@ -76,12 +76,12 @@ export default function BibinHero() {
         }
         .fan-card {
           position: absolute;
-          bottom: 0;
+          top: 20px;
           left: 50%;
           width: 220px;
           text-decoration: none;
           display: block;
-          transform-origin: bottom center;
+          transform-origin: center 400px;
           transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.35s ease;
         }
         .fan-card-img {
@@ -200,7 +200,9 @@ export default function BibinHero() {
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
                 style={{
-                  transform: `translateX(-50%) rotate(${angle}deg)${isHov ? " translateY(-28px)" : ""}`,
+                  transform: isHov
+                    ? `translateY(-22px) translateX(-50%) rotate(${angle}deg)`
+                    : `translateX(-50%) rotate(${angle}deg)`,
                   zIndex: isHov ? 10 : FAN_Z[i],
                   boxShadow: isHov
                     ? "0 24px 60px rgba(0,0,0,0.45), 0 8px 24px rgba(0,0,0,0.25)"

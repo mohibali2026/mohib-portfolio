@@ -26,7 +26,7 @@ const fanIssues = [
 
 // angles for fan — shared pivot far below, matching the hand-held card spread
 const FAN_ANGLES = [-42, -21, 0, 21, 42];
-const FAN_Z      = [1, 2, 3, 2, 1];
+const FAN_Z      = [5, 4, 3, 2, 1];
 
 export default function BibinHero() {
   const [modalOpen, setModalOpen] = useState(false);

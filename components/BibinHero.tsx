@@ -1,9 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { DM_Serif_Display } from "next/font/google";
-
-const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 
 const paragraphs = [
   <>In Persian, <em>Bibin</em> is an imperative verb meaning "see," "watch," or "look." It is used to ask or invite someone to look at something, emphasizing the significance of the act of seeing.</>,
@@ -24,9 +21,14 @@ const fanIssues = [
   { number: 5, href: "https://www.bibinmagazine.com/magazine/issue-5", img: "/images/bibin/issue-5.jpg" },
 ];
 
-// angles for fan — shared pivot far below, matching the hand-held card spread
-const FAN_ANGLES = [-42, -21, 0, 21, 42];
-const FAN_Z      = [5, 4, 3, 2, 1];
+// rotate, yOffset (down), zIndex
+const FAN = [
+  { rotate: -22, y: 50, z: 1 },
+  { rotate: -11, y: 18, z: 2 },
+  { rotate:   0, y:  0, z: 3 },
+  { rotate:  11, y: 18, z: 2 },
+  { rotate:  22, y: 50, z: 1 },
+];
 
 export default function BibinHero() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -63,33 +65,30 @@ export default function BibinHero() {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          padding: 40px 24px 80px;
+          padding: 80px 24px 60px;
           gap: 0;
         }
         .fan-container {
           position: relative;
           width: 100%;
-          height: 380px;
-          margin-bottom: 100px;
+          max-width: 900px;
+          height: 340px;
+          margin-bottom: 56px;
           flex-shrink: 0;
-          overflow: visible;
         }
         .fan-card {
           position: absolute;
-          top: 0;
-          left: 50%;
-          width: 260px;
+          bottom: 0;
+          width: 180px;
           text-decoration: none;
           display: block;
-          transform-origin: center 320px;
           transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.35s ease;
         }
         .fan-card-img {
           width: 100%;
-          aspect-ratio: 3 / 4;
+          aspect-ratio: 1 / 1;
           overflow: hidden;
           position: relative;
-          border-radius: 8px;
         }
         .fan-card-img img {
           width: 100%; height: 100%;
@@ -134,8 +133,8 @@ export default function BibinHero() {
         }
         .btn-fill {
           padding: 12px 28px;
-          background: #0a0a0a;
-          color: #ffffff;
+          background: var(--text-primary);
+          color: var(--bg);
           font-size: 13px;
           letter-spacing: 0.04em;
           cursor: pointer;
@@ -143,10 +142,6 @@ export default function BibinHero() {
           transition: opacity 0.2s ease;
           text-decoration: none;
           display: inline-block;
-        }
-        [data-theme="dark"] .btn-fill {
-          background: #f5f0e8;
-          color: #1C1917;
         }
         .btn-fill:hover { opacity: 0.8; }
 
@@ -178,8 +173,8 @@ export default function BibinHero() {
         @keyframes bSlideUp { from { opacity: 0; transform: translateY(20px) } to { opacity: 1; transform: translateY(0) } }
 
         @media (max-width: 768px) {
-          .fan-container { height: 220px; margin-bottom: 60px; }
-          .fan-card { width: 110px; transform-origin: center 200px; }
+          .fan-container { height: 200px; margin-bottom: 40px; }
+          .fan-card { width: 100px; }
           .bibin-hero { padding: 60px 24px 48px; }
         }
       `}</style>
@@ -188,8 +183,9 @@ export default function BibinHero() {
         {/* Fan of magazines */}
         <div className="fan-container">
           {fanIssues.map((issue, i) => {
-            const angle = FAN_ANGLES[i];
+            const { rotate, y, z } = FAN[i];
             const isHov = hovered === i;
+            const xOffset = (i - 2) * 130; // spacing between cards
 
             return (
               <a
@@ -201,10 +197,9 @@ export default function BibinHero() {
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
                 style={{
-                  transform: isHov
-                    ? `translateY(-22px) translateX(-50%) rotate(${angle}deg)`
-                    : `translateX(-50%) rotate(${angle}deg)`,
-                  zIndex: isHov ? 10 : FAN_Z[i],
+                  left: `calc(50% + ${xOffset}px)`,
+                  transform: `translateX(-50%) rotate(${rotate}deg) translateY(${isHov ? y - 24 : y}px)`,
+                  zIndex: isHov ? 10 : z,
                   boxShadow: isHov
                     ? "0 24px 60px rgba(0,0,0,0.45), 0 8px 24px rgba(0,0,0,0.25)"
                     : "0 8px 32px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.15)",
@@ -220,7 +215,7 @@ export default function BibinHero() {
         </div>
 
         {/* Title */}
-        <h1 className={`bibin-title ${dmSerif.className}`}>Bibin Photography Magazine</h1>
+        <h1 className="bibin-title">Bibin Photography Magazine</h1>
 
         {/* Buttons */}
         <div className="bibin-btns">

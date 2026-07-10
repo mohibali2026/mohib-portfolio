@@ -4,6 +4,10 @@ import Navbar from "@/components/Navbar";
 import CustomCursor from "@/components/CustomCursor";
 import PageTransition from "@/components/PageTransition";
 import ThemeToggle from "@/components/ThemeToggle";
+import { Vazirmatn, Inter } from "next/font/google";
+
+const vazirmatn = Vazirmatn({ subsets: ["arabic"], variable: "--font-vazir", display: "swap" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
   title: "Mohib Ali Altaf , Product Designer & Creative Lead",
@@ -13,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className={`h-full ${vazirmatn.variable} ${inter.variable}`}>
       <head />
       <body className="min-h-full flex flex-col" style={{ backgroundColor: "var(--bg)", color: "var(--text-primary)" }}>
         <CustomCursor />

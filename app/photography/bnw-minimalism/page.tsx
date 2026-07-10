@@ -44,13 +44,8 @@ const photos = [
   "/images/minimalism/40.jpg",
 ];
 
-const STRIP_COUNT = 10;
-const HALF = Math.floor(STRIP_COUNT / 2);
-
 export default function BnwMinimalismPage() {
   const [current, setCurrent] = useState(0);
-  const loadedSet = useRef<Set<number>>(new Set());
-  const [, forceRender] = useState(0);
   const direction = useRef(0);
 
   useEffect(() => {
@@ -69,11 +64,6 @@ export default function BnwMinimalismPage() {
     setCurrent((i) => (i + 1) % photos.length);
   }, []);
 
-  const goTo = useCallback((i: number) => {
-    direction.current = i > current ? 1 : -1;
-    setCurrent(i);
-  }, [current]);
-
   const touchStartX = useRef<number | null>(null);
   const onTouchStart = useCallback((e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; }, []);
   const onTouchEnd = useCallback((e: React.TouchEvent) => {
@@ -81,15 +71,6 @@ export default function BnwMinimalismPage() {
     const diff = touchStartX.current - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
     touchStartX.current = null;
-  }, [next, prev]);
-
-  const stripTouchStartX = useRef<number | null>(null);
-  const onStripTouchStart = useCallback((e: React.TouchEvent) => { stripTouchStartX.current = e.touches[0].clientX; }, []);
-  const onStripTouchEnd = useCallback((e: React.TouchEvent) => {
-    if (stripTouchStartX.current === null) return;
-    const diff = stripTouchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 30) diff > 0 ? next() : prev();
-    stripTouchStartX.current = null;
   }, [next, prev]);
 
   useEffect(() => {
@@ -101,22 +82,18 @@ export default function BnwMinimalismPage() {
     return () => window.removeEventListener("keydown", onKey);
   }, [prev, next]);
 
-  const stripIndices = Array.from({ length: STRIP_COUNT }, (_, k) =>
-    ((current - HALF + k) % photos.length + photos.length) % photos.length
-  );
-
   return (
     <div
       onContextMenu={e => e.preventDefault()}
-      style={{ position: "fixed", inset: 0, display: "flex", flexDirection: "column", userSelect: "none" }}
+      style={{ position: "fixed", inset: 0, display: "flex", userSelect: "none" }}
     >
       <style>{`
         img.gallery-img { pointer-events: none; -webkit-user-drag: none; -webkit-touch-callout: none; display: block; max-height: 520px; max-width: 620px; width: auto; height: auto; }
-        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: white; border: 1px solid #D0D0D0; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.12); transition: box-shadow 0.2s ease; z-index: 10; color: #1A1A1A; }
-        .nav-arrow:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.22); }
+        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: white; border: 1px solid #D0D0D0; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow-xs); transition: box-shadow 0.2s ease; z-index: 10; color: #1A1A1A; }
+        .nav-arrow:hover { box-shadow: var(--shadow-sm); }
         .nav-arrow.left { left: 24px; }
         .nav-arrow.right { right: 24px; }
-        .gallery-frame { background: var(--gallery-frame); padding: 14px; display: inline-flex; box-shadow: 0 8px 40px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.16); }
+        .gallery-frame { background: var(--gallery-frame); padding: 14px; display: inline-flex; box-shadow: var(--shadow-lg); }
         .gallery-mat { background: #FAF9F7; padding: 32px; }
         @media (max-width: 768px) {
           img.gallery-img { max-height: 220px; max-width: 260px; }
@@ -128,7 +105,7 @@ export default function BnwMinimalismPage() {
         }
       `}</style>
 
-      {/* Gallery wall */}
+      {/* Gallery wall — framed image centered with equal top/bottom padding */}
       <div
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
@@ -144,24 +121,16 @@ export default function BnwMinimalismPage() {
             transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             style={{ display: "inline-flex" }}
           >
-            <img
-              key={photos[current]}
-              src={photos[current]}
-              style={{ display: "none" }}
-              onLoad={() => { loadedSet.current.add(current); forceRender(n => n + 1); }}
-            />
-            {loadedSet.current.has(current) && (
-              <div className="gallery-frame">
-                <div className="gallery-mat">
-                  <img
-                    src={photos[current]}
-                    alt={`bnw minimalism ${current + 1}`}
-                    className="gallery-img"
-                    draggable={false}
-                  />
-                </div>
+            <div className="gallery-frame">
+              <div className="gallery-mat">
+                <img
+                  src={photos[current]}
+                  alt={`bnw minimalism ${current + 1}`}
+                  className="gallery-img"
+                  draggable={false}
+                />
               </div>
-            )}
+            </div>
           </motion.div>
         </AnimatePresence>
 
@@ -175,30 +144,6 @@ export default function BnwMinimalismPage() {
             <path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
-      </div>
-
-      {/* Thumbnail strip */}
-      <div
-        onTouchStart={onStripTouchStart}
-        onTouchEnd={onStripTouchEnd}
-        style={{ position: "relative", width: "100%", backgroundColor: "var(--bg)", maskImage: "linear-gradient(to right, transparent, black 12%, black 88%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 12%, black 88%, transparent)" }}
-      >
-        <div style={{ display: "flex", gap: "8px", padding: "16px 24px", alignItems: "center", justifyContent: "center" }}>
-          {stripIndices.map((photoIdx, slot) => {
-            const isActive = photoIdx === current;
-            return (
-              <motion.button
-                key={`${slot}-${photoIdx}`}
-                layout
-                onClick={() => goTo(photoIdx)}
-                aria-label={`Go to photo ${photoIdx + 1}`}
-                style={{ width: isActive ? "48px" : "40px", height: isActive ? "48px" : "40px", padding: 0, border: isActive ? "1.5px solid #f5f0e8" : "1.5px solid transparent", cursor: "pointer", overflow: "hidden", flexShrink: 0, opacity: isActive ? 1 : 0.5, transition: "all 0.2s ease", position: "relative", backgroundColor: "transparent" }}
-              >
-                <img src={photos[photoIdx]} alt="" draggable={false} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", pointerEvents: "none" }} />
-              </motion.button>
-            );
-          })}
-        </div>
       </div>
     </div>
   );

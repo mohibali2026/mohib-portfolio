@@ -16,7 +16,7 @@ const links = [
     ],
   },
   { href: "/bibin", label: "Bibin" },
-  { href: "/contact", label: "Contact" }, // nav order: About · Resume · Photography · Bibin · Contact
+  { href: "/contact", label: "Contact" }, // nav order: About · Resume · Photography · Bibin · Contact (غزل‌ها is unlisted, reachable via /poetry)
 ];
 
 function HamburgerIcon({ open }: { open: boolean }) {
@@ -197,7 +197,7 @@ export default function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              className={`text-sm tracking-wider transition-all duration-200 ${
+              className={`text-sm tracking-wider transition-all duration-200 ${l.href === "/poetry" ? "font-vazir " : ""}${
                 pathname === l.href
                   ? "text-[#f5f0e8] border-b border-[#f5f0e8] pb-0.5"
                   : "text-[#888] hover:text-[#f5f0e8] hover:tracking-widest"
@@ -334,7 +334,7 @@ export default function Navbar() {
                   ) : (
                     <Link
                       href={l.href}
-                      className={`text-2xl font-semibold tracking-tight transition-colors block ${
+                      className={`text-2xl font-semibold tracking-tight transition-colors block ${l.href === "/poetry" ? "font-vazir " : ""}${
                         pathname === l.href
                           ? "text-[#f5f0e8] border-b border-[#f5f0e8] pb-0.5 w-fit"
                           : "text-[#444] hover:text-[#f5f0e8]"

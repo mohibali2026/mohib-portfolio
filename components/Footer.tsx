@@ -9,13 +9,13 @@ export default function Footer() {
         <div className="text-[clamp(40px,8vw,100px)] font-bold tracking-tighter leading-none text-[#f5f0e8] mb-2">
           MOHIB ALI ALTAF
         </div>
-        <p className="text-[#888] text-sm tracking-widest uppercase mb-12">
+        <p className="text-[#888] text-sm tracking-widest mb-12">
           Designing Products That Matter.
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           <div>
-            <p className="text-xs tracking-widest uppercase text-[#888] mb-4">/Quick Links</p>
+            <p className="text-xs tracking-widest text-[#888] mb-4">/Quick Links</p>
             <div className="flex flex-col gap-2">
               {[["Home", "/"], ["Experience", "/experience"], ["Contact", "/contact"]].map(([label, href]) => (
                 <Link key={href} href={href} className="text-sm text-[#f5f0e8]/70 hover:text-[#f5f0e8] transition-colors">
@@ -25,7 +25,7 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <p className="text-xs tracking-widest uppercase text-[#888] mb-4">/Contact</p>
+            <p className="text-xs tracking-widest text-[#888] mb-4">/Contact</p>
             <div className="flex flex-col gap-2 text-sm text-[#f5f0e8]/70">
               <a href="mailto:mohibali2017@gmail.com" className="hover:text-[#f5f0e8] transition-colors">
                 mohibali2017@gmail.com

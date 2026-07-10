@@ -164,14 +164,14 @@ export default function Navbar() {
               href={l.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm tracking-wider uppercase transition-all duration-200 text-[#888] hover:text-[#f5f0e8] hover:tracking-widest"
+              className="text-sm tracking-wider transition-all duration-200 text-[#888] hover:text-[#f5f0e8] hover:tracking-widest"
             >
               {l.label}
             </a>
           ) : l.children ? (
             <div key={l.href} className="relative group">
               <span
-                className={`text-sm tracking-wider uppercase transition-all duration-200 cursor-default inline-flex items-center gap-1 ${
+                className={`text-sm tracking-wider transition-all duration-200 cursor-default inline-flex items-center gap-1 ${
                   pathname.startsWith(l.href)
                     ? "text-[#f5f0e8] border-b border-[#f5f0e8] pb-0.5"
                     : "text-[#888] hover:text-[#f5f0e8]"
@@ -191,7 +191,7 @@ export default function Navbar() {
                     <Link
                       key={child.href}
                       href={child.href}
-                      className={`text-xs tracking-wider uppercase transition-all duration-200 ${
+                      className={`text-xs tracking-wider transition-all duration-200 ${
                         pathname === child.href
                           ? "text-[#f5f0e8]"
                           : "text-[#888] hover:text-[#f5f0e8]"
@@ -207,7 +207,7 @@ export default function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              className={`text-sm tracking-wider uppercase transition-all duration-200 ${
+              className={`text-sm tracking-wider transition-all duration-200 ${
                 pathname === l.href
                   ? "text-[#f5f0e8] border-b border-[#f5f0e8] pb-0.5"
                   : "text-[#888] hover:text-[#f5f0e8] hover:tracking-widest"

@@ -102,7 +102,7 @@ export default function ExperiencePage() {
         {/* Header */}
         <ScrollReveal>
           <div className="border-b border-[#222]" style={{ paddingBottom: "40px", marginBottom: "0px" }}>
-            <p className="text-[#888] text-xs tracking-widest uppercase" style={{ marginBottom: "16px" }}>Background</p>
+            <p className="text-[#888] text-xs tracking-widest" style={{ marginBottom: "16px" }}>Background</p>
             <h1
               className="font-bold leading-none tracking-tighter text-[#f5f0e8]"
               style={{ fontSize: "clamp(32px, 4vw, 56px)", marginBottom: "0px" }}
@@ -132,7 +132,7 @@ export default function ExperiencePage() {
                     )}
                   </div>
                   <div>
-                    <p className="text-[#888] text-xs tracking-widest uppercase" style={{ marginBottom: "4px" }}>{job.period}</p>
+                    <p className="text-[#888] text-xs tracking-widest" style={{ marginBottom: "4px" }}>{job.period}</p>
                     <a href={job.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#f5f0e8] text-xl transition-all duration-200 block hover:opacity-60 hover:tracking-wide" style={{ marginBottom: "4px", textDecoration: "none" }}>{job.company}</a>
                     <p className="text-[#f5f0e8]/70 text-sm" style={{ marginBottom: "4px" }}>{job.role}</p>
                     <p className="text-[#555] text-xs tracking-wide">{job.location}</p>
@@ -150,7 +150,7 @@ export default function ExperiencePage() {
         <div style={{ marginTop: "40px", marginBottom: "80px" }}>
           <Link
             href="/recommendations"
-            className="inline-flex items-center gap-2 text-[#f5f0e8] text-sm tracking-wider uppercase border border-[#333] hover:border-[#f5f0e8] transition-all duration-200"
+            className="inline-flex items-center gap-2 text-[#f5f0e8] text-sm tracking-wider border border-[#333] hover:border-[#f5f0e8] transition-all duration-200"
             style={{ padding: "12px 24px", textDecoration: "none" }}
           >
             Recommendations
@@ -235,7 +235,7 @@ export default function ExperiencePage() {
 
         <div style={{ marginTop: "80px", marginBottom: "60px" }}>
           <ScrollReveal>
-            <p className="text-[#888] text-xs tracking-widest uppercase" style={{ marginBottom: "16px" }}>Strengths</p>
+            <p className="text-[#888] text-xs tracking-widest" style={{ marginBottom: "16px" }}>Strengths</p>
             <h2
               className="font-bold leading-none tracking-tighter text-[#f5f0e8]"
               style={{ fontSize: "clamp(32px, 4vw, 56px)", marginBottom: "40px" }}
@@ -296,7 +296,7 @@ export default function ExperiencePage() {
         {/* Languages */}
         <div style={{ marginTop: "80px", marginBottom: "60px" }}>
           <ScrollReveal>
-            <p className="text-[#888] text-xs tracking-widest uppercase" style={{ marginBottom: "16px" }}>Communication</p>
+            <p className="text-[#888] text-xs tracking-widest" style={{ marginBottom: "16px" }}>Communication</p>
             <h2
               className="font-bold leading-none tracking-tighter text-[#f5f0e8]"
               style={{ fontSize: "clamp(32px, 4vw, 56px)", marginBottom: "40px" }}

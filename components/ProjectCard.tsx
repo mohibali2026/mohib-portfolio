@@ -15,7 +15,7 @@ export default function ProjectCard({ slug, title, category, year }: Props) {
       <div className="relative overflow-hidden bg-[#111] border border-[#222] rounded-sm aspect-[4/3] mb-4 transition-transform duration-300 group-hover:-translate-y-1">
         {/* Placeholder image */}
         <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] flex items-center justify-center">
-          <span className="text-[#333] text-xs tracking-widest uppercase">Project Image</span>
+          <span className="text-[#333] text-xs tracking-widest">Project Image</span>
         </div>
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-[#f5f0e8]/0 group-hover:bg-[#f5f0e8]/5 transition-colors duration-300 flex items-end p-4 opacity-0 group-hover:opacity-100">

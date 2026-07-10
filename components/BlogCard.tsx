@@ -14,7 +14,7 @@ export default function BlogCard({ slug, date, title, excerpt, large }: Props) {
     <Link href={`/blog/${slug}`} className="group block border-t border-[#222] py-8 hover:border-[#444] transition-colors">
       <div className="flex items-start justify-between gap-8">
         <div className="flex-1">
-          <p className="text-[#888] text-xs tracking-widest uppercase mb-3">{date}</p>
+          <p className="text-[#888] text-xs tracking-widest mb-3">{date}</p>
           <h3 className={`font-semibold text-[#f5f0e8] mb-3 group-hover:text-[#f5f0e8]/80 transition-colors leading-tight ${large ? "text-2xl md:text-3xl" : "text-lg md:text-xl"}`}>
             {title}
           </h3>

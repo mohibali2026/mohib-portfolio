@@ -46,7 +46,7 @@ export default function Home() {
 
         {/* TEXT , below image on mobile, left on desktop */}
         <div className="home-text order-2 lg:order-1">
-          <p className="hidden lg:block text-[#888] text-xs tracking-[0.2em] uppercase home-gap-md">
+          <p className="hidden lg:block text-[#888] text-xs tracking-[0.2em] home-gap-md">
             Designer, Photographer & Poet
           </p>
 

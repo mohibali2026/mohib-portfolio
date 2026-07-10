@@ -23,7 +23,7 @@ export default function ContactPage() {
         {/* Header */}
         <ScrollReveal>
           <div className="border-b border-[#222]" style={{ paddingBottom: "40px", marginBottom: "40px" }}>
-            <p className="text-[#888] text-xs tracking-widest uppercase" style={{ marginBottom: "16px" }}>Contact</p>
+            <p className="text-[#888] text-xs tracking-widest" style={{ marginBottom: "16px" }}>Contact</p>
             <h1
               className="font-bold leading-none tracking-tighter text-[#f5f0e8]"
               style={{ fontSize: "clamp(32px, 4vw, 56px)", marginBottom: "40px" }}

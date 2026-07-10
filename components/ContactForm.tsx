@@ -28,7 +28,7 @@ export default function ContactForm() {
         { key: "subject", label: "Subject", type: "text", placeholder: "What's this about?" },
       ].map(({ key, label, type, placeholder }) => (
         <div key={key}>
-          <label className="text-xs tracking-widest uppercase text-[#888] block mb-2">{label}</label>
+          <label className="text-xs tracking-widest text-[#888] block mb-2">{label}</label>
           <input
             type={type}
             placeholder={placeholder}
@@ -40,7 +40,7 @@ export default function ContactForm() {
         </div>
       ))}
       <div>
-        <label className="text-xs tracking-widest uppercase text-[#888] block mb-2">Message</label>
+        <label className="text-xs tracking-widest text-[#888] block mb-2">Message</label>
         <textarea
           placeholder="Tell me about your project..."
           required
@@ -52,7 +52,7 @@ export default function ContactForm() {
       </div>
       <button
         type="submit"
-        className="flex items-center gap-2 bg-[#f5f0e8] text-[#0a0a0a] px-6 py-3 text-sm font-semibold tracking-wider uppercase self-start hover:bg-[#f5f0e8]/90 transition-colors rounded-sm"
+        className="flex items-center gap-2 bg-[#f5f0e8] text-[#0a0a0a] px-6 py-3 text-sm font-semibold tracking-wider self-start hover:bg-[#f5f0e8]/90 transition-colors rounded-sm"
       >
         Send Message <Send size={14} />
       </button>

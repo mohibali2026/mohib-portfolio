@@ -15,7 +15,7 @@ export default function RecommendationsPage() {
 
         <ScrollReveal>
           <div style={{ paddingBottom: "40px", marginBottom: "40px" }}>
-            <Link href="/experience" className="text-[#888] text-xs tracking-widest uppercase hover:text-[#f5f0e8] transition-colors" style={{ textDecoration: "none", display: "inline-block", marginBottom: "16px" }}>Back</Link>
+            <Link href="/experience" className="text-[#888] text-xs tracking-widest hover:text-[#f5f0e8] transition-colors" style={{ textDecoration: "none", display: "inline-block", marginBottom: "16px" }}>Back</Link>
             <h1
               className="font-bold leading-none tracking-tighter text-[#f5f0e8]"
               style={{ fontSize: "clamp(32px, 4vw, 56px)" }}

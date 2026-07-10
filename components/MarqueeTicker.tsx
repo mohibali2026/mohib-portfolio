@@ -12,8 +12,8 @@ export default function MarqueeTicker() {
           animate={{ x: [0, "-50%"] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         >
-          <span className="text-[#0a0a0a] text-sm font-medium tracking-widest uppercase mx-8">{text}{text}</span>
-          <span className="text-[#0a0a0a] text-sm font-medium tracking-widest uppercase mx-8">{text}{text}</span>
+          <span className="text-[#0a0a0a] text-sm font-medium tracking-widest mx-8">{text}{text}</span>
+          <span className="text-[#0a0a0a] text-sm font-medium tracking-widest mx-8">{text}{text}</span>
         </motion.div>
       </div>
     </div>

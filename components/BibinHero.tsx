@@ -1,6 +1,9 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { DM_Serif_Display } from "next/font/google";
+
+const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 
 const paragraphs = [
   <>In Persian, <em>Bibin</em> is an imperative verb meaning "see," "watch," or "look." It is used to ask or invite someone to look at something, emphasizing the significance of the act of seeing.</>,
@@ -22,15 +25,15 @@ const fanIssues = [
 ];
 
 // Layered diagonal cascade — LOW→MID→HIGH→MID→LOW arch, each card on top of previous
-// Card size: 220px square. 20% overlap = 44px, step = 176px.
-// Total composition width: 4×176 + 220 = 924px → center offset = 462px
+// Card size: 220px square. Step = 210px (~5% overlap) for visible spacing between cards.
+// Total composition width: 4×210 + 220 = 1060px → center offset = 530px
 const CARD_SIZE = 220;
 const CARDS = [
-  { rotate: -15, top: 100, left: -462, z: 1 },
-  { rotate:  -7, top:  45, left: -286, z: 2 },
+  { rotate: -15, top: 100, left: -530, z: 1 },
+  { rotate:  -7, top:  45, left: -320, z: 2 },
   { rotate:   0, top:   0, left: -110, z: 3 },
-  { rotate:   7, top:  45, left:   66, z: 4 },
-  { rotate:  15, top: 100, left:  242, z: 5 },
+  { rotate:   7, top:  45, left:  100, z: 4 },
+  { rotate:  15, top: 100, left:  310, z: 5 },
 ];
 
 export default function BibinHero() {
@@ -75,7 +78,7 @@ export default function BibinHero() {
         .fan-scaler {
           width: 100%;
           height: 380px;
-          margin-bottom: 80px;
+          margin-bottom: 160px;
           display: flex;
           justify-content: center;
           align-items: flex-start;
@@ -84,7 +87,7 @@ export default function BibinHero() {
         }
         .fan-container {
           position: relative;
-          width: 924px;
+          width: 1060px;
           height: 380px;
           flex-shrink: 0;
           overflow: visible;
@@ -237,7 +240,7 @@ export default function BibinHero() {
         </div>
 
         {/* Title */}
-        <h1 className="bibin-title">Bibin Photography Magazine</h1>
+        <h1 className={`bibin-title ${dmSerif.className}`}>Bibin Photography Magazine</h1>
 
         {/* Buttons */}
         <div className="bibin-btns">

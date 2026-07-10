@@ -40,7 +40,7 @@ export default function BibinHero() {
         .fan-scaler {
           width: 100%;
           height: 345px;
-          margin-bottom: 64px;
+          margin-bottom: 32px;
           display: flex;
           justify-content: center;
           align-items: flex-start;

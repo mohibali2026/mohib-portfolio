@@ -20,22 +20,6 @@ export default function ContactPage() {
     <div className="page-padding">
       <div style={{ maxWidth: "1058px", margin: "0 auto" }}>
 
-        {/* Header */}
-        <ScrollReveal>
-          <div className="border-b border-[#222]" style={{ paddingBottom: "40px", marginBottom: "40px" }}>
-            <p className="text-[#888] text-xs tracking-widest" style={{ marginBottom: "16px" }}>Contact</p>
-            <h1
-              className="font-bold leading-none tracking-tighter text-[#f5f0e8]"
-              style={{ fontSize: "clamp(32px, 4vw, 56px)", marginBottom: "40px" }}
-            >
-              Let's talk.
-            </h1>
-            <p className="text-[#888] text-base max-w-xl leading-relaxed">
-              Whether you have a project, a question, or just want to connect , I'd love to hear from you.
-            </p>
-          </div>
-        </ScrollReveal>
-
         {/* Email */}
         <ScrollReveal>
           <div className="border-b border-[#222] flex items-center justify-between" style={{ padding: "24px 0" }}>
@@ -43,16 +27,6 @@ export default function ContactPage() {
               mohibali2017@gmail.com
             </a>
             <CopyButton value="mohibali2017@gmail.com" />
-          </div>
-        </ScrollReveal>
-
-        {/* Phone */}
-        <ScrollReveal>
-          <div className="border-b border-[#222] flex items-center justify-between" style={{ padding: "24px 0" }}>
-            <a href="tel:+905524817671" className="text-[#f5f0e8] text-sm hover:text-[#888] transition-colors">
-              +90 552 481 7671
-            </a>
-            <CopyButton value="+90 552 481 7671" />
           </div>
         </ScrollReveal>
 

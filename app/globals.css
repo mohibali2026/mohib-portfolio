@@ -110,3 +110,9 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #0a0a0a !important;
   color: #f5f0e8 !important;
 }
+
+/* Download Now / filled buttons stay white text on dark bg */
+[data-theme="light"] .btn-fill {
+  background-color: #0a0a0a !important;
+  color: #ffffff !important;
+}

@@ -38,7 +38,6 @@ const CARDS = [
 
 export default function BibinHero() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [hovered, setHovered] = useState<number | null>(null);
   const router = useRouter();
 
   const handleAbout = () => {
@@ -71,14 +70,14 @@ export default function BibinHero() {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          padding: 80px 24px 60px;
+          padding: 80px 24px 0;
           gap: 0;
         }
         /* fan-scaler controls flow height; fan-container holds absolute cards */
         .fan-scaler {
           width: 100%;
           height: 380px;
-          margin-bottom: 160px;
+          margin-bottom: 80px;
           display: flex;
           justify-content: center;
           align-items: flex-start;
@@ -92,23 +91,25 @@ export default function BibinHero() {
           flex-shrink: 0;
           overflow: visible;
         }
-        .fan-card {
+        /* outer wrapper: holds transform + drop-shadow (not clipped) */
+        .fan-card-wrap {
           position: absolute;
           width: 220px;
           height: 220px;
-          text-decoration: none;
+          filter: drop-shadow(0 8px 28px rgba(0,0,0,0.32)) drop-shadow(0 2px 6px rgba(0,0,0,0.18));
+        }
+        /* inner link: clips content to rounded shape */
+        .fan-card {
           display: block;
-          transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.35s ease;
+          width: 100%;
+          height: 100%;
+          text-decoration: none;
+          clip-path: inset(0 round 32px);
         }
         .fan-card-img {
           width: 100%;
           height: 100%;
-          overflow: hidden;
           position: relative;
-          border-radius: 20px;
-          transform: translateZ(0);
-          -webkit-mask-image: -webkit-radial-gradient(white, black);
-          mask-image: radial-gradient(white, black);
         }
         .fan-card-img img {
           width: 100%; height: 100%;
@@ -164,6 +165,10 @@ export default function BibinHero() {
           display: inline-block;
         }
         .btn-fill:hover { opacity: 0.8; }
+        [data-theme="light"] .btn-fill {
+          background-color: #0a0a0a !important;
+          color: #ffffff !important;
+        }
 
         /* Modal */
         .modal-overlay {
@@ -195,12 +200,10 @@ export default function BibinHero() {
         @media (max-width: 1024px) {
           .fan-scaler { height: 247px; margin-bottom: 52px; }
           .fan-container { transform: scale(0.65); transform-origin: center top; }
-          .bibin-hero { padding: 60px 24px 48px; }
         }
         @media (max-width: 600px) {
           .fan-scaler { height: 152px; margin-bottom: 32px; }
           .fan-container { transform: scale(0.4); transform-origin: center top; }
-          .bibin-hero { padding: 40px 24px 40px; }
         }
       `}</style>
 
@@ -210,33 +213,29 @@ export default function BibinHero() {
           <div className="fan-container">
             {fanIssues.map((issue, i) => {
               const card = CARDS[i];
-              const isHov = hovered === i;
               return (
-                <a
+                <div
                   key={issue.number}
-                  href={issue.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="fan-card"
-                  onMouseEnter={() => setHovered(i)}
-                  onMouseLeave={() => setHovered(null)}
+                  className="fan-card-wrap"
                   style={{
                     top: `${card.top}px`,
                     left: `calc(50% + ${card.left}px)`,
-                    transform: isHov
-                      ? `rotate(${card.rotate}deg) translateY(-18px)`
-                      : `rotate(${card.rotate}deg)`,
-                    zIndex: isHov ? 10 : card.z,
-                    boxShadow: isHov
-                      ? "0 24px 60px rgba(0,0,0,0.45), 0 8px 24px rgba(0,0,0,0.25)"
-                      : "0 8px 32px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.15)",
+                    transform: `rotate(${card.rotate}deg)`,
+                    zIndex: card.z,
                   }}
                 >
-                  <div className="fan-card-img">
-                    <img src={issue.img} alt={`Bibin Issue ${issue.number}`} />
-                    <div className="fan-gloss" />
-                  </div>
-                </a>
+                  <a
+                    href={issue.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="fan-card"
+                  >
+                    <div className="fan-card-img">
+                      <img src={issue.img} alt={`Bibin Issue ${issue.number}`} />
+                      <div className="fan-gloss" />
+                    </div>
+                  </a>
+                </div>
               );
             })}
           </div>

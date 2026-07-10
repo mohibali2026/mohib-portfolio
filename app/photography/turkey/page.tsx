@@ -16,7 +16,16 @@ const HALF = Math.floor(STRIP_COUNT / 2);
 
 export default function TurkeyPage() {
   const [current, setCurrent] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const direction = useRef(0);
+
+  // Reset loaded state and preload adjacent images whenever current changes
+  useEffect(() => {
+    setImageLoaded(false);
+    const preload = (src: string) => { const img = new window.Image(); img.src = src; };
+    preload(photos[(current + 1) % photos.length]);
+    preload(photos[(current - 1 + photos.length) % photos.length]);
+  }, [current]);
 
   const prev = useCallback(() => {
     direction.current = -1;
@@ -33,11 +42,8 @@ export default function TurkeyPage() {
     setCurrent(i);
   }, [current]);
 
-  // Main image swipe
   const touchStartX = useRef<number | null>(null);
-  const onTouchStart = useCallback((e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  }, []);
+  const onTouchStart = useCallback((e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; }, []);
   const onTouchEnd = useCallback((e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
     const diff = touchStartX.current - e.changedTouches[0].clientX;
@@ -45,11 +51,8 @@ export default function TurkeyPage() {
     touchStartX.current = null;
   }, [next, prev]);
 
-  // Strip swipe
   const stripTouchStartX = useRef<number | null>(null);
-  const onStripTouchStart = useCallback((e: React.TouchEvent) => {
-    stripTouchStartX.current = e.touches[0].clientX;
-  }, []);
+  const onStripTouchStart = useCallback((e: React.TouchEvent) => { stripTouchStartX.current = e.touches[0].clientX; }, []);
   const onStripTouchEnd = useCallback((e: React.TouchEvent) => {
     if (stripTouchStartX.current === null) return;
     const diff = stripTouchStartX.current - e.changedTouches[0].clientX;
@@ -76,7 +79,7 @@ export default function TurkeyPage() {
       style={{ position: "fixed", inset: 0, display: "flex", flexDirection: "column", userSelect: "none" }}
     >
       <style>{`
-        img.gallery-img { pointer-events: none; -webkit-user-drag: none; -webkit-touch-callout: none; display: block; max-height: 380px; max-width: 420px; width: auto; height: auto; }
+        img.gallery-img { pointer-events: none; -webkit-user-drag: none; -webkit-touch-callout: none; display: block; max-height: 520px; max-width: 620px; width: auto; height: auto; }
         .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: white; border: 1px solid #D0D0D0; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.12); transition: box-shadow 0.2s ease; z-index: 10; color: #1A1A1A; }
         .nav-arrow:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.22); }
         .nav-arrow.left { left: 24px; }
@@ -104,7 +107,7 @@ export default function TurkeyPage() {
             key={current}
             custom={direction.current}
             initial={{ x: direction.current * 60, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
+            animate={{ x: 0, opacity: imageLoaded ? 1 : 0 }}
             exit={{ x: direction.current * -60, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             style={{ display: "inline-flex" }}
@@ -116,6 +119,7 @@ export default function TurkeyPage() {
                   alt={`Turkey ${current + 1}`}
                   className="gallery-img"
                   draggable={false}
+                  onLoad={() => setImageLoaded(true)}
                 />
               </div>
             </div>

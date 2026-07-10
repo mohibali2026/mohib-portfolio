@@ -39,8 +39,8 @@ export default function BibinHero() {
         /* fan-scaler controls flow height; fan-container holds absolute cards */
         .fan-scaler {
           width: 100%;
-          height: 325px;
-          margin-bottom: 24px;
+          height: 301px;
+          margin-bottom: 16px;
           display: flex;
           justify-content: center;
           align-items: flex-start;
@@ -53,6 +53,9 @@ export default function BibinHero() {
           height: 380px;
           flex-shrink: 0;
           overflow: visible;
+          /* Web view: shrink the whole fan so each 220px card renders at ~204px (16px smaller). */
+          transform: scale(0.9273);
+          transform-origin: center top;
         }
         /* outer wrapper: holds transform + drop-shadow (not clipped) */
         .fan-card-wrap {
@@ -141,12 +144,12 @@ export default function BibinHero() {
         @media (max-width: 600px) {
           .fan-scaler { height: 152px; margin-bottom: 20px; }
           .fan-container { transform: scale(0.4); transform-origin: center top; }
-          /* Mobile only: pull the fan tighter (step 190px -> 170px). Overrides the JS inline left. */
-          .fan-card-wrap:nth-child(1) { left: calc(50% - 450px) !important; }
-          .fan-card-wrap:nth-child(2) { left: calc(50% - 280px) !important; }
+          /* Mobile only: pull the fan tighter (step 190px -> 150px). Overrides the JS inline left. */
+          .fan-card-wrap:nth-child(1) { left: calc(50% - 410px) !important; }
+          .fan-card-wrap:nth-child(2) { left: calc(50% - 260px) !important; }
           .fan-card-wrap:nth-child(3) { left: calc(50% - 110px) !important; }
-          .fan-card-wrap:nth-child(4) { left: calc(50% + 60px) !important; }
-          .fan-card-wrap:nth-child(5) { left: calc(50% + 230px) !important; }
+          .fan-card-wrap:nth-child(4) { left: calc(50% + 40px) !important; }
+          .fan-card-wrap:nth-child(5) { left: calc(50% + 190px) !important; }
         }
       `}</style>
 

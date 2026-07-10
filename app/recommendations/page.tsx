@@ -39,12 +39,17 @@ export default function RecommendationsPage() {
                     href="https://www.linkedin.com/in/khushnood-nabizada/?skipRedirect=true"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold text-[#f5f0e8] text-sm hover:opacity-60 transition-all duration-200 block"
+                    className="group block"
                     style={{ textDecoration: "none" }}
                   >
-                    Khushnood Nabizada
+                    <span className="font-semibold text-[#f5f0e8] text-sm block group-hover:opacity-60 transition-opacity duration-200">Khushnood Nabizada</span>
+                    <span className="text-[#888] text-xs block">Founder of Khaama Press</span>
+                    <span className="flex items-center text-[#888] group-hover:text-[#f5f0e8] transition-colors duration-200" style={{ marginTop: "10px" }} aria-hidden="true">
+                      <svg className="transition-transform duration-200 group-hover:translate-x-[2px] group-hover:-translate-y-[2px]" width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <path d="M7 17L17 7M7 7h10v10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </span>
                   </a>
-                  <p className="text-[#888] text-xs">Founder of Khaama Press</p>
                 </div>
               </div>
               <p className="text-[#888] text-sm leading-relaxed">
@@ -67,18 +72,54 @@ export default function RecommendationsPage() {
                     href="https://www.linkedin.com/in/saboor-hakimi/?skipRedirect=true"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold text-[#f5f0e8] text-sm hover:opacity-60 transition-all duration-200 block"
+                    className="group block"
                     style={{ textDecoration: "none" }}
                   >
-                    Abdul Saboor Hakimi
+                    <span className="font-semibold text-[#f5f0e8] text-sm block group-hover:opacity-60 transition-opacity duration-200">Abdul Saboor Hakimi</span>
+                    <span className="text-[#888] text-xs block">System Engineer</span>
+                    <span className="flex items-center text-[#888] group-hover:text-[#f5f0e8] transition-colors duration-200" style={{ marginTop: "10px" }} aria-hidden="true">
+                      <svg className="transition-transform duration-200 group-hover:translate-x-[2px] group-hover:-translate-y-[2px]" width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <path d="M7 17L17 7M7 7h10v10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </span>
                   </a>
-                  <p className="text-[#888] text-xs">System Engineer</p>
                 </div>
               </div>
               <p className="text-[#888] text-sm leading-relaxed">
                 I had the pleasure of working with Mohib Ali Altaf at Aseel, where his talent in UI/UX design truly stood out. His passion for clean and minimalist designs was apparent in every project, creating intuitive and visually stunning user experiences that left a lasting impact. Beyond his design expertise, What truly sets Mohib apart is that he is a photographer and poet, which adds further dimension to his creativity, adding depth to his artistic perspective.
                 <br /><br />
                 What impressed me a lot was his ease on working with our team, with the user experience always on top of his mind. He is not just a creative person but also a good team player who always delivers. If you're looking for someone who's skilled, passionate, and a joy to work with, there's no one I would recommend more than Mohib.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          {/* Recommendation 3 */}
+          <ScrollReveal delay={0.16}>
+            <div className="border border-[#222]" style={{ padding: "32px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
+                <div style={{ width: "80px", height: "80px", overflow: "hidden", flexShrink: 0 }}>
+                  <Image src="/images/rec-zia.jpeg" alt="Zia Soltani" width={80} height={80} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                </div>
+                <div>
+                  <a
+                    href="https://www.linkedin.com/in/zia-soltani-876123110/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <span className="font-semibold text-[#f5f0e8] text-sm block group-hover:opacity-60 transition-opacity duration-200">Zia Soltani</span>
+                    <span className="text-[#888] text-xs block">Senior Software Engineer</span>
+                    <span className="flex items-center text-[#888] group-hover:text-[#f5f0e8] transition-colors duration-200" style={{ marginTop: "10px" }} aria-hidden="true">
+                      <svg className="transition-transform duration-200 group-hover:translate-x-[2px] group-hover:-translate-y-[2px]" width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <path d="M7 17L17 7M7 7h10v10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <p className="text-[#888] text-sm leading-relaxed">
+                I&apos;ve worked with Mohib on multiple projects and found him a talented, creative individual in product management and UI/UX design.
               </p>
             </div>
           </ScrollReveal>

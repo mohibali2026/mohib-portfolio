@@ -30,38 +30,20 @@ export default function PoetryPage() {
           min-height: 340px;
           border-radius: 8px;
           border: 1px solid var(--border);
-          background: var(--surface);
+          background: var(--bg);
           padding: 20px;
           overflow: hidden;
           text-decoration: none;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        /* Hover glow: multi-color + drifting, confined to the bottom (fades out under the 2nd line) */
-        .poem-card::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(130deg,
-            rgba(255,200,140,0.5) 0%,
-            rgba(238,128,42,0.72) 100%);
-          background-size: 240% 240%;
-          -webkit-mask-image: linear-gradient(to top, #000 30%, transparent 52%);
-          mask-image: linear-gradient(to top, #000 30%, transparent 52%);
-          opacity: 0;
-          transition: opacity 0.45s ease;
-          pointer-events: none;
-        }
         .poem-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
-        .poem-card:hover::before { opacity: 1; animation: poem-glow 5s ease-in-out infinite; }
-        @keyframes poem-glow {
-          0%   { background-position: 0% 0%; }
-          50%  { background-position: 100% 100%; }
-          100% { background-position: 0% 0%; }
-        }
         .poem-card > * { position: relative; z-index: 1; }
         .poem-line-1 { font-size: 18px; font-weight: 500; line-height: 1.75; }
         .poem-line-2 { font-size: 15px; font-weight: 400; line-height: 1.95; margin-top: 6px; }
-        .poem-num { font-size: 13px; letter-spacing: 0.05em; margin-top: 44px; }
+        .poem-num { font-size: 13px; letter-spacing: 0.05em; }
+        .poem-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 44px; }
+        .poem-arrow { transition: transform 0.25s ease; }
+        .poem-card:hover .poem-arrow { transform: translateX(3px); }
       `}</style>
 
       <div style={{ maxWidth: "1058px", margin: "0 auto" }} dir="rtl">
@@ -87,7 +69,12 @@ export default function PoetryPage() {
                   <p className="poem-line-1 text-[#f5f0e8]">{poem.stanzas[0][0]}</p>
                   <p className="poem-line-2 text-[#888]">{poem.stanzas[0][1]}</p>
                 </div>
-                <span className="poem-num text-[#555]">{faDigits(poem.id)}</span>
+                <div className="poem-foot" dir="ltr">
+                  <span className="poem-num text-[#555]">{faDigits(poem.id)}</span>
+                  <svg className="poem-arrow text-[#555]" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
               </Link>
             ))}
           </div>

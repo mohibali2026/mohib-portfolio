@@ -12,7 +12,7 @@ interface Props {
   showHover?: boolean;
 }
 
-export default function LanguageCard({ name, nativeName, desc, nativeDesc, glow, rating, index, showHover = true }: Props) {
+export default function LanguageCard({ name, nativeName, desc, nativeDesc, rating, index, showHover = true }: Props) {
   const [hovered, setHovered] = useState(false);
   const active = hovered && showHover;
 
@@ -24,7 +24,6 @@ export default function LanguageCard({ name, nativeName, desc, nativeDesc, glow,
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="skill-glow" style={{ background: glow }} />
       <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", height: "100%" }}>
 
         {/* Title — grid overlap so height = max of both */}

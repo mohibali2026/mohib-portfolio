@@ -158,78 +158,34 @@ export default function ExperiencePage() {
 
         {/* Skills */}
         <style>{`
+          /* Consistent with the poem (غزل‌ها) cards: same size, padding, radius, simple hover */
           .skill-card {
             position: relative;
-            overflow: hidden;
-            border: 1px solid #222;
-            padding: 32px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            border-radius: 0;
+            justify-content: space-between;
+            height: 100%;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            padding: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
           }
-          .skill-glow {
-            position: absolute;
-            bottom: -80px;
-            left: 50%;
-            transform: translateX(-50%) rotate(0deg);
-            width: 120%;
-            height: 200px;
-            border-radius: 40%;
-            filter: blur(52px);
-            opacity: 0.25;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-          }
-          .skill-card:hover .skill-glow {
-            opacity: 0.75;
-            animation: drift-glow 3s ease-in-out infinite;
-          }
-          .skill-card:not(:hover) .skill-glow {
-            animation: none;
-            opacity: 0.25;
-          }
-          @keyframes drift-glow {
-            0%   { transform: translateX(-60%) translateY(0px) rotate(0deg) scale(1); opacity: 0.65; }
-            25%  { transform: translateX(-50%) translateY(-20px) rotate(6deg) scale(1.08); opacity: 0.85; }
-            50%  { transform: translateX(-40%) translateY(-10px) rotate(-4deg) scale(1.12); opacity: 0.75; }
-            75%  { transform: translateX(-50%) translateY(-24px) rotate(8deg) scale(1.05); opacity: 0.9; }
-            100% { transform: translateX(-60%) translateY(0px) rotate(0deg) scale(1); opacity: 0.65; }
-          }
-          .skills-grid {
+          .skill-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+          .skills-grid, .lang-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 16px;
+            gap: 12px;
             align-items: stretch;
           }
-          .skills-grid > * { height: 100%; }
-          .skill-card { height: 100%; }
-          @media (min-width: 1024px) {
-            .skills-grid {
-              grid-template-columns: repeat(4, 1fr);
-            }
-          }
+          .skills-grid > *, .lang-grid > * { height: 100%; }
           @media (min-width: 640px) and (max-width: 1023px) {
-            .skills-grid {
-              grid-template-columns: repeat(2, 1fr);
-            }
+            .skills-grid, .lang-grid { grid-template-columns: repeat(2, 1fr); }
           }
-          .lang-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-            align-items: stretch;
-          }
-          .lang-grid > * { height: 100%; }
           @media (min-width: 1024px) {
-            .lang-grid { grid-template-columns: repeat(5, 1fr); }
+            .skills-grid, .lang-grid { grid-template-columns: repeat(5, 1fr); }
           }
-          @media (min-width: 640px) and (max-width: 1023px) {
-            .lang-grid { grid-template-columns: repeat(2, 1fr); }
-          }
-          [data-theme="light"] .skill-card { border-color: #d0cbc2; }
-          [data-theme="light"] .skill-card .skill-glow { opacity: 0.15; }
-          [data-theme="light"] .skill-card:hover .skill-glow { opacity: 0.4; }
         `}</style>
 
         <div style={{ marginTop: "80px", marginBottom: "60px" }}>
@@ -244,10 +200,19 @@ export default function ExperiencePage() {
 
           <div className="skills-grid">
 
+            {/* Leadership */}
+            <ScrollReveal delay={0}>
+              <div className="skill-card">
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <p className="font-semibold text-[#f5f0e8]" style={{ marginBottom: "8px", fontSize: "16px" }}>Leadership</p>
+                  <p className="text-[#888] text-sm leading-relaxed">Turning ambiguous problems into clear team direction.</p>
+                </div>
+              </div>
+            </ScrollReveal>
+
             {/* Product Strategy */}
             <ScrollReveal delay={0}>
               <div className="skill-card">
-                <div className="skill-glow" style={{ background: "radial-gradient(ellipse, #6366f1 0%, #8b5cf6 50%, transparent 100%)" }} />
                 <div style={{ position: "relative", zIndex: 1 }}>
                   <p className="font-semibold text-[#f5f0e8]" style={{ marginBottom: "8px", fontSize: "16px" }}>Product Strategy</p>
                   <p className="text-[#888] text-sm leading-relaxed">Figuring out what to build, what to ignore, and why it matters.</p>
@@ -258,7 +223,6 @@ export default function ExperiencePage() {
             {/* UX Research */}
             <ScrollReveal delay={0.05}>
               <div className="skill-card">
-                <div className="skill-glow" style={{ background: "radial-gradient(ellipse, #06b6d4 0%, #3b82f6 50%, transparent 100%)" }} />
                 <div style={{ position: "relative", zIndex: 1 }}>
                   <p className="font-semibold text-[#f5f0e8]" style={{ marginBottom: "8px", fontSize: "16px" }}>UX Research</p>
                   <p className="text-[#888] text-sm leading-relaxed">Talking to people until the real problem shows up.</p>
@@ -269,7 +233,6 @@ export default function ExperiencePage() {
             {/* Visual Design */}
             <ScrollReveal delay={0.1}>
               <div className="skill-card">
-                <div className="skill-glow" style={{ background: "radial-gradient(ellipse, #f43f5e 0%, #ec4899 50%, transparent 100%)" }} />
                 <div style={{ position: "relative", zIndex: 1 }}>
                   <p className="font-semibold text-[#f5f0e8]" style={{ marginBottom: "8px", fontSize: "16px" }}>Visual Design</p>
                   <p className="text-[#888] text-sm leading-relaxed">Getting the details right until nothing feels out of place.</p>
@@ -280,7 +243,6 @@ export default function ExperiencePage() {
             {/* Product-Market Fit */}
             <ScrollReveal delay={0.15}>
               <div className="skill-card">
-                <div className="skill-glow" style={{ background: "radial-gradient(ellipse, #f59e0b 0%, #f97316 50%, transparent 100%)" }} />
                 <div style={{ position: "relative", zIndex: 1 }}>
                   <p className="font-semibold text-[#f5f0e8]" style={{ marginBottom: "8px", fontSize: "16px" }}>Product-Market Fit</p>
                   <p className="text-[#888] text-sm leading-relaxed">Finding where a product clicks with the people it's made for.</p>

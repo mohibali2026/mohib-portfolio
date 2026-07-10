@@ -20,6 +20,18 @@ export default function ContactPage() {
     <div className="page-padding">
       <div style={{ maxWidth: "1058px", margin: "0 auto" }}>
 
+        {/* Header */}
+        <ScrollReveal>
+          <div className="border-b border-[#222]" style={{ paddingBottom: "40px", marginBottom: "0px" }}>
+            <h1
+              className="font-bold leading-none tracking-tighter text-[#f5f0e8]"
+              style={{ fontSize: "clamp(32px, 4vw, 56px)", marginBottom: "0px" }}
+            >
+              Contact
+            </h1>
+          </div>
+        </ScrollReveal>
+
         {/* Email */}
         <ScrollReveal>
           <div className="border-b border-[#222] flex items-center justify-between" style={{ padding: "24px 0" }}>

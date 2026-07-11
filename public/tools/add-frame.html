@@ -161,6 +161,29 @@
   .exopt i{display:block;font-size:12.5px;color:var(--ui-text2);font-style:normal;margin-top:2px}
   .exopt em{font-size:12px;color:var(--ui-text3);font-style:normal;flex:0 0 auto}
 
+  /* ===== Desktop / tablet (>=768px): drop the phone mockup, use a big canvas + right sidebar ===== */
+  body.desktop .page{padding:0;min-height:100vh;display:block}
+  body.desktop .scaler{transform-origin:top left}
+  body.desktop .phone{border-radius:0;box-shadow:none;background:var(--page)}
+  body.desktop .screen{border-radius:0;background:var(--page)}
+  body.desktop .status{height:60px;flex:0 0 60px;background:var(--ui-card);border-bottom:.5px solid var(--ui-sep)}
+  body.desktop .topbtns{top:13px;right:26px;left:auto;transform:none}
+  body.desktop .editor{flex-direction:row}
+  body.desktop .preview{min-width:0;background:var(--ui-bg)}
+  body.desktop .toolzone{flex:0 0 384px;width:384px;display:flex;flex-direction:column;overflow:hidden;border-top:0;border-left:.5px solid var(--ui-sep);background:var(--ui-bg);padding:0}
+  body.desktop .tabs{padding:18px 20px 12px;gap:6px;flex-wrap:wrap;overflow:visible;border-bottom:.5px solid var(--ui-sep)}
+  body.desktop .tab{padding:8px 15px}
+  body.desktop .panels{flex:1 1 auto;height:auto!important;overflow-y:auto;padding:16px 4px 28px}
+  body.desktop .home{display:none}
+  body.desktop .empty{padding:0}
+  body.desktop .drop{max-width:460px}
+  /* signature + export sheets become centered modals on desktop */
+  body.desktop .sheet{left:50%;right:auto;top:50%;bottom:auto;width:430px;max-width:calc(100vw - 48px);max-height:calc(100vh - 96px);overflow-y:auto;border-radius:20px;padding:22px 22px 24px;transform:translate(-50%,-50%) scale(.96);opacity:0;transition:transform .26s cubic-bezier(.22,.61,.36,1),opacity .26s}
+  body.desktop .sheet-wrap.open .sheet{transform:translate(-50%,-50%) scale(1);opacity:1}
+  body.desktop .grab{display:none}
+  /* Narrower sidebar on smaller (tablet) widths so the canvas keeps the majority of the space */
+  @media (min-width:768px) and (max-width:899px){ body.desktop .toolzone{flex:0 0 320px;width:320px} }
+
   @media (max-width:767px){ .page{padding:0;min-height:100dvh} }
   @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
 </style>
@@ -383,8 +406,10 @@
     if(frameW>0){p.push('inset 0 1px 0 rgba(255,255,255,.14)','inset 0 -2px 4px rgba(0,0,0,.4)');}
     art.style.boxShadow = p.length ? p.join(',') : 'none';
   }
+  function desktop(){return document.body.classList.contains('desktop');}
   function layout(hOv){
-    var aw=preview.clientWidth-36, ah=(hOv||preview.clientHeight)-28;
+    var _m=desktop()?64:0;
+    var aw=preview.clientWidth-36-_m, ah=(hOv||preview.clientHeight)-28-_m;
     var w=fit(aw,ah,wallRatio); wall.style.width=w.w+'px'; wall.style.height=w.h+'px';
     // Photo is the anchor; mat + frame grow OUTWARD around it (thickness relative to the photo).
     var ph=fit(w.w*artSize,w.h*artSize,ARTR), pShort=Math.min(ph.w,ph.h);
@@ -551,6 +576,12 @@
     tabEls.forEach(function(t){t.classList.toggle('on',t.dataset.tab===name);});
     if(name==='crop'){cropview.hidden=false;wall.style.visibility='hidden';}
     else{if(prev==='crop')applyCrop();cropview.hidden=true;wall.style.visibility='';}
+    if(desktop()){
+      panelEls.forEach(function(p){p.hidden=(p.dataset.panel!==name);});
+      panelsEl.style.height=''; layout();
+      if(name==='crop'){renderCrop();setTimeout(renderCrop,40);setTimeout(renderCrop,160);}
+      return;
+    }
     var startH=panelsEl.offsetHeight;
     panelEls.forEach(function(p){p.hidden=(p.dataset.panel!==name);});
     panelsEl.style.height='auto';
@@ -561,7 +592,7 @@
     clearTimeout(tabTimer); tabTimer=setTimeout(function(){panelsEl.style.height='auto';preview.classList.remove('animating');layout();if(!cropview.hidden)renderCrop();},450);
   }
   function collapsePanel(){
-    if(collapsed)return;
+    if(desktop()||collapsed)return;
     var activeEl=tabEls.filter(function(t){return t.classList.contains('on');})[0], active=activeEl?activeEl.dataset.tab:null;
     if(active==='crop'){applyCrop();cropview.hidden=true;wall.style.visibility='';}
     collapsed=true;
@@ -574,14 +605,23 @@
     preview.classList.add('animating'); layout(finalPrev);
     clearTimeout(tabTimer); tabTimer=setTimeout(function(){preview.classList.remove('animating');layout();},450);
   }
-  tabEls.forEach(function(t){t.onclick=function(){if(!collapsed&&t.classList.contains('on')){collapsePanel();}else{showTab(t.dataset.tab);}};});
-  preview.addEventListener('click',function(e){if(collapsed)return;if(e.target.closest('.sig')||e.target.closest('.cropbox'))return;collapsePanel();});
+  tabEls.forEach(function(t){t.onclick=function(){if(!desktop()&&!collapsed&&t.classList.contains('on')){collapsePanel();}else{showTab(t.dataset.tab);}};});
+  preview.addEventListener('click',function(e){if(desktop()||collapsed)return;if(e.target.closest('.sig')||e.target.closest('.cropbox'))return;collapsePanel();});
 
   var scaler=document.getElementById('scaler'),phone=document.getElementById('phone');
   function rescale(){
     var vw=window.innerWidth,vh=window.innerHeight;
-    if(vw<768){phone.classList.add('bare');phone.style.width=vw+'px';phone.style.height=vh+'px';scaler.style.transform='none';scaler.style.width=vw+'px';scaler.style.height=vh+'px';}
-    else{phone.classList.remove('bare');phone.style.width='340px';phone.style.height='738px';var s=Math.min(1,(vh-32)/738);scaler.style.transform='scale('+s+')';scaler.style.width='340px';scaler.style.height=(738*s)+'px';}
+    var isDesk=vw>=768;
+    document.body.classList.toggle('desktop',isDesk);
+    if(isDesk){
+      // Desktop / tablet: no phone bezel — the tool fills the window (canvas + sidebar).
+      phone.classList.add('bare');phone.style.width=vw+'px';phone.style.height=vh+'px';
+      scaler.style.transform='none';scaler.style.width=vw+'px';scaler.style.height=vh+'px';
+    } else {
+      // Mobile: unchanged — bare, full-screen.
+      phone.classList.add('bare');phone.style.width=vw+'px';phone.style.height=vh+'px';
+      scaler.style.transform='none';scaler.style.width=vw+'px';scaler.style.height=vh+'px';
+    }
   }
   window.addEventListener('resize',function(){rescale();layout();});
   rescale();

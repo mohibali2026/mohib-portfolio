@@ -166,8 +166,10 @@
   body.desktop .scaler{transform-origin:top left}
   body.desktop .phone{border-radius:0;box-shadow:none;background:var(--page)}
   body.desktop .screen{border-radius:0;background:var(--page)}
-  body.desktop .status{height:60px;flex:0 0 60px;background:var(--ui-card);border-bottom:.5px solid var(--ui-sep)}
-  body.desktop .topbtns{top:13px;right:26px;left:auto;transform:none}
+  body.desktop .status{height:60px;flex:0 0 60px;background:var(--ui-card);border-bottom:.5px solid var(--ui-sep);display:flex;align-items:center;padding:0 24px}
+  .brand{display:none}
+  body.desktop .brand{display:block;font-size:16px;font-weight:600;letter-spacing:-.01em;color:var(--ui-text)}
+  body.desktop .topbtns{top:9px;right:24px;left:auto;transform:none}
   body.desktop .editor{flex-direction:row}
   body.desktop .preview{min-width:0;background:var(--ui-bg)}
   body.desktop .toolzone{flex:0 0 384px;width:384px;display:flex;flex-direction:column;overflow:hidden;border-top:0;border-left:.5px solid var(--ui-sep);background:var(--ui-bg);padding:0}
@@ -181,6 +183,17 @@
   body.desktop .sheet{left:50%;right:auto;top:50%;bottom:auto;width:430px;max-width:calc(100vw - 48px);max-height:calc(100vh - 96px);overflow-y:auto;border-radius:20px;padding:22px 22px 24px;transform:translate(-50%,-50%) scale(.96);opacity:0;transition:transform .26s cubic-bezier(.22,.61,.36,1),opacity .26s}
   body.desktop .sheet-wrap.open .sheet{transform:translate(-50%,-50%) scale(1);opacity:1}
   body.desktop .grab{display:none}
+  /* Vertical accordion (desktop/tablet): section heads sit inside .panels; hidden on mobile (tabs used there) */
+  .acc-head{display:none}
+  .acc-body{display:block}
+  body.desktop .tabs{display:none}
+  body.desktop .panels{padding:0}
+  body.desktop .acc-head{display:flex;align-items:center;justify-content:space-between;width:100%;padding:15px 16px;font:inherit;font-size:15px;font-weight:600;color:var(--ui-text);background:none;border:0;border-top:.5px solid var(--ui-sep);cursor:pointer;text-align:left;-webkit-tap-highlight-color:transparent}
+  body.desktop .acc-head:first-child{border-top:0}
+  body.desktop .acc-head:hover{background:rgba(0,0,0,.025)}
+  body.desktop .acc-head .chev{flex:0 0 auto;color:var(--ui-text2);transition:transform .28s cubic-bezier(.22,.61,.36,1)}
+  body.desktop .acc-head:not(.open) .chev{transform:rotate(-90deg)}
+  body.desktop .acc-body>.panel{padding:2px 0 14px}
   /* Narrower sidebar on smaller (tablet) widths so the canvas keeps the majority of the space */
   @media (min-width:768px) and (max-width:899px){ body.desktop .toolzone{flex:0 0 320px;width:320px} }
 
@@ -198,7 +211,7 @@
       <div class="side btn-power"></div>
       <div class="island"></div>
       <div class="screen">
-        <div class="status"></div>
+        <div class="status"><span class="brand">Add frame</span></div>
 
         <div class="topbtns" id="topbtns" hidden>
           <button class="topbtn sec" id="replaceBtn">Replace<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4 3 8l4 4"/><path d="M3 8h13"/><path d="M17 20l4-4-4-4"/><path d="M21 16H8"/></svg></button>
@@ -490,7 +503,7 @@
   };
 
   var fileEl=document.getElementById('file'),emptyEl=document.getElementById('empty'),editorEl=document.getElementById('editor');
-  function showEditor(){emptyEl.hidden=true;editorEl.hidden=false;document.getElementById('topbtns').hidden=false;rescale();showTab('crop');layout();setTimeout(layout,50);}
+  function showEditor(){emptyEl.hidden=true;editorEl.hidden=false;document.getElementById('topbtns').hidden=false;rescale();if(desktop())renderAccordion();else showTab('crop');layout();setTimeout(layout,50);}
   function loadPhoto(src){downloaded=false;origImg=new Image();origImg.onload=function(){cropRect={x:0,y:0,w:origImg.naturalWidth,h:origImg.naturalHeight};cropRatios[0][1]=origImg.naturalWidth/origImg.naturalHeight;var _sp=croparow.querySelector('.pill.sel');if(_sp&&_sp.textContent==='Original')cropRatio=cropRatios[0][1];if(cropview&&!cropview.hidden)renderCrop();};origImg.src=src;cropRatio=null;pimg.onload=function(){ARTR=pimg.naturalWidth/pimg.naturalHeight;ratios[0][1]=ARTR;var op=arow.querySelector('.pill');if(op&&op.classList.contains('sel'))wallRatio=ARTR;showEditor();};pimg.src=src;}
   fileEl.onchange=function(e){var f=e.target.files&&e.target.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(ev){loadPhoto(ev.target.result);};rd.readAsDataURL(f);};
 
@@ -565,7 +578,7 @@
     renderCrop();});
   document.addEventListener('pointerup',function(){cropDrag=null;});
   document.getElementById('cropReset').onclick=function(){if(origImg.naturalWidth){cropRect={x:0,y:0,w:origImg.naturalWidth,h:origImg.naturalHeight};cropRatios[0][1]=origImg.naturalWidth/origImg.naturalHeight;cropRatio=cropRatios[0][1];croparow.querySelectorAll('.pill').forEach(function(p,i){p.classList.toggle('sel',i===0);});renderCrop();}};
-  document.getElementById('cropDone').onclick=function(){showTab('frame');};
+  document.getElementById('cropDone').onclick=function(){if(desktop()){accOpen.crop=false;accOpen.frame=true;applyCrop();renderAccordion();}else{showTab('frame');}};
   function applyCrop(){if(!origImg.naturalWidth||!cropRect)return;var c=document.createElement('canvas');c.width=Math.max(1,Math.round(cropRect.w));c.height=Math.max(1,Math.round(cropRect.h));c.getContext('2d').drawImage(origImg,cropRect.x,cropRect.y,cropRect.w,cropRect.h,0,0,c.width,c.height);pimg.onload=function(){ARTR=pimg.naturalWidth/pimg.naturalHeight;ratios[0][1]=ARTR;var op=arow.querySelector('.pill.sel');if(op&&op.textContent==='Original')wallRatio=ARTR;layout();};pimg.src=c.toDataURL('image/png');}
 
   var tabEls=[].slice.call(document.querySelectorAll('.tab')),panelEls=[].slice.call(document.querySelectorAll('.panel'));
@@ -608,19 +621,52 @@
   tabEls.forEach(function(t){t.onclick=function(){if(!desktop()&&!collapsed&&t.classList.contains('on')){collapsePanel();}else{showTab(t.dataset.tab);}};});
   preview.addEventListener('click',function(e){if(desktop()||collapsed)return;if(e.target.closest('.sig')||e.target.closest('.cropbox'))return;collapsePanel();});
 
+  // ===== Desktop / tablet accordion: build vertical section heads from the same panels (heads hidden on mobile) =====
+  var accLabels={crop:'Crop',frame:'Frame & Mat',wall:'Wall',signature:'Signature'};
+  var accOpen={crop:true,frame:false,wall:false,signature:false}, wasDesktop=null;
+  var accHeads=[],accBodies={},panelBySec={};
+  panelEls.forEach(function(p){
+    var sec=p.dataset.panel; panelBySec[sec]=p;
+    var body=document.createElement('div'); body.className='acc-body'; body.dataset.sec=sec;
+    p.parentNode.insertBefore(body,p); body.appendChild(p);
+    var head=document.createElement('button'); head.type='button'; head.className='acc-head'; head.dataset.sec=sec;
+    head.innerHTML='<span>'+accLabels[sec]+'</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+    body.parentNode.insertBefore(head,body);
+    head.onclick=function(){toggleSection(sec);};
+    accHeads.push(head); accBodies[sec]=body;
+  });
+  function renderAccordion(){
+    var cropOpen=!!accOpen.crop;
+    cropview.hidden=!cropOpen; wall.style.visibility=cropOpen?'hidden':'';
+    accHeads.forEach(function(h){var s=h.dataset.sec,open=!!accOpen[s];h.classList.toggle('open',open);accBodies[s].classList.toggle('open',open);panelBySec[s].hidden=!open;});
+    layout();
+    if(cropOpen){renderCrop();setTimeout(renderCrop,40);setTimeout(renderCrop,320);}
+  }
+  function toggleSection(name){
+    if(name==='crop'){
+      if(accOpen.crop){accOpen.crop=false;applyCrop();}
+      else{accOpen={crop:true,frame:false,wall:false,signature:false};}
+    } else {
+      if(accOpen.crop){accOpen.crop=false;applyCrop();}
+      accOpen[name]=!accOpen[name];
+    }
+    renderAccordion();
+  }
+
   var scaler=document.getElementById('scaler'),phone=document.getElementById('phone');
   function rescale(){
     var vw=window.innerWidth,vh=window.innerHeight;
     var isDesk=vw>=768;
     document.body.classList.toggle('desktop',isDesk);
-    if(isDesk){
-      // Desktop / tablet: no phone bezel — the tool fills the window (canvas + sidebar).
-      phone.classList.add('bare');phone.style.width=vw+'px';phone.style.height=vh+'px';
-      scaler.style.transform='none';scaler.style.width=vw+'px';scaler.style.height=vh+'px';
-    } else {
-      // Mobile: unchanged — bare, full-screen.
-      phone.classList.add('bare');phone.style.width=vw+'px';phone.style.height=vh+'px';
-      scaler.style.transform='none';scaler.style.width=vw+'px';scaler.style.height=vh+'px';
+    // Both mobile and desktop are bare (no phone bezel) and fill the window; the .desktop class re-flows the layout.
+    phone.classList.add('bare');phone.style.width=vw+'px';phone.style.height=vh+'px';
+    scaler.style.transform='none';scaler.style.width=vw+'px';scaler.style.height=vh+'px';
+    if(isDesk!==wasDesktop){
+      wasDesktop=isDesk;
+      if(editorEl&&!editorEl.hidden){
+        if(isDesk){renderAccordion();}
+        else{showTab(accOpen.crop?'crop':'frame');}
+      }
     }
   }
   window.addEventListener('resize',function(){rescale();layout();});

@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import CustomCursor from "@/components/CustomCursor";
-import PageTransition from "@/components/PageTransition";
-import ThemeToggle from "@/components/ThemeToggle";
+import Shell from "@/components/Shell";
 import { Vazirmatn, Inter } from "next/font/google";
 
 const vazirmatn = Vazirmatn({ subsets: ["arabic"], variable: "--font-vazir", display: "swap" });
@@ -20,12 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`h-full ${vazirmatn.variable} ${inter.variable}`}>
       <head />
       <body className="min-h-full flex flex-col" style={{ backgroundColor: "var(--bg)", color: "var(--text-primary)" }}>
-        <CustomCursor />
-        <div className="hidden md:block"><ThemeToggle /></div>
-        <Navbar />
-        <main className="flex-1">
-          <PageTransition>{children}</PageTransition>
-        </main>
+        <Shell>{children}</Shell>
       </body>
     </html>
   );

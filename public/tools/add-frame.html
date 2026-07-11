@@ -33,8 +33,8 @@
   .phone.bare .screen{border-radius:0}
   .status{height:54px;flex:0 0 54px}
 
-  .topbtns{position:absolute;top:60px;right:14px;z-index:15;display:flex;gap:8px}
-  .topbtn{height:34px;padding:0 14px;border-radius:999px;font:inherit;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:6px;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+  .topbtns{position:absolute;top:62px;left:50%;transform:translateX(-50%);z-index:15;display:flex;gap:10px}
+  .topbtn{height:42px;padding:0 22px;border-radius:999px;font:inherit;font-size:15px;font-weight:600;display:flex;align-items:center;gap:7px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.14)}
   .topbtn svg{flex:0 0 auto}
   .topbtn.sec{background:var(--ui-card);border:.5px solid var(--ui-sep);color:var(--ui-text)}
   .topbtn.pri{background:var(--ui-ink);border:0;color:var(--ui-onink)}
@@ -95,6 +95,8 @@
   .sw-toggle::after{content:"";position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .2s}
   .sw-toggle.on::after{transform:translateX(18px)}
   .plus{width:30px;height:30px;border-radius:50%;border:0;background:var(--ui-ink);color:var(--ui-onink);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .sig-remove{width:30px;height:30px;border-radius:50%;border:.5px solid var(--ui-sep);background:var(--ui-card);color:var(--ui-text2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto;margin-right:8px}
+  .sig-remove:active{background:var(--ui-bg)}
   .sigstate{margin-left:auto;font-size:14px;color:var(--ui-text2);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
   .pos{display:grid;grid-template-columns:repeat(3,1fr);width:74px;height:74px;margin-left:auto;border-radius:9px;overflow:hidden;border:.5px solid var(--ui-sep)}
   .pcell{display:flex;align-items:center;justify-content:center;border:.5px solid var(--ui-sep);cursor:pointer}
@@ -252,7 +254,7 @@
               </div>
               <div class="panel" data-panel="signature" hidden>
                 <div class="card" id="sigcard">
-                  <div class="row"><span class="lab">Signature</span><span class="sigstate" id="sigstate">None</span><button class="plus" id="addsig" aria-label="Add signature"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
+                  <div class="row"><span class="lab">Signature</span><span class="sigstate" id="sigstate">None</span><button class="sig-remove" id="rmsig" hidden aria-label="Remove signature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3"/></svg></button><button class="plus" id="addsig" aria-label="Add signature"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
                   <div class="row sigctl" hidden><span class="lab">Place</span><div class="seg-mini" id="sigplace"><button data-p="image" class="on">Image</button><button data-p="mat">Mat</button></div></div>
                   <div class="row sigctl" hidden><span class="lab">Size</span><input class="sld" id="ss" type="range" min="4" max="34" value="16" step="1"><span class="val" id="ssv">16</span></div>
                   <div class="row sigctl" hidden><span class="lab">Opacity</span><input class="sld" id="so" type="range" min="10" max="100" value="90" step="1"><span class="val" id="sov">90</span></div>
@@ -413,6 +415,15 @@
   function setText(){var im=sig.querySelector('img');if(im)sig.innerHTML='';sigMode='text';sigText=sigtext.value;renderSig();}
   addsig.onclick=function(){if(!sigAdded){sigMode='text';sigText=sigtext.value;renderSig();}sheet.classList.add('open');};
   document.getElementById('sheetbd').onclick=function(){sheet.classList.remove('open');if(!sigAdded){sigMode='none';renderSig();}};
+  document.getElementById('rmsig').onclick=function(){
+    sigMode='none';sigAdded=false;sigText='';sig.innerHTML='';sig.className='sig empty';
+    try{strokes.length=0;if(typeof drawpad!=='undefined'&&drawpad&&dctx)dctx.clearRect(0,0,drawpad.width,drawpad.height);}catch(_){}
+    sigtext.value='';var up=document.getElementById('upprev');if(up){up.hidden=true;up.innerHTML='';}
+    var sf=document.getElementById('sigfile');if(sf)sf.value='';
+    sigstate.textContent='None';
+    document.querySelectorAll('.sigctl').forEach(function(r){r.hidden=true;});
+    this.hidden=true;renderSig();
+  };
   var sigTab='type';
   document.getElementById('seg2').querySelectorAll('button').forEach(function(b){b.onclick=function(){document.getElementById('seg2').querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');var t=b.dataset.t;sigTab=t;document.getElementById('pane-type').hidden=(t!=='type');document.getElementById('pane-draw').hidden=(t!=='draw');document.getElementById('pane-up').hidden=(t!=='up');if(t==='draw')setTimeout(fitPad,0);};});
   var fonts=[['Script','"Snell Roundhand","Apple Chancery",cursive'],['Savoye','"Savoye LET","Snell Roundhand",cursive'],['Chancery','"Apple Chancery",cursive'],['Zapf','Zapfino,"Snell Roundhand",cursive'],['Serif','Didot,Georgia,serif'],['Baskerville','Baskerville,"Times New Roman",serif'],['Palatino','Palatino,"Palatino Linotype",serif'],['Times','"Times New Roman",Times,serif'],['Hand','"Bradley Hand",cursive'],['Marker','"Marker Felt","Comic Sans MS",cursive'],['Note','Noteworthy,"Marker Felt",cursive'],['Chalk','"Chalkboard SE","Comic Sans MS",cursive'],['Sans','"Helvetica Neue",Arial,sans-serif'],['Futura','Futura,"Century Gothic",sans-serif'],['Optima','Optima,Candara,sans-serif'],['Avenir','"Avenir Next",Avenir,sans-serif'],['Gill','"Gill Sans","Gill Sans MT",sans-serif'],['Typewriter','"American Typewriter","Courier New",serif'],['Mono','Menlo,Monaco,monospace']];
@@ -450,7 +461,7 @@
   }
   document.getElementById('sigdone').onclick=function(){
     if(sigTab==='draw'){var url=drawingToImage();if(url){sig.innerHTML='';var di=document.createElement('img');di.onload=renderSig;di.src=url;sigMode='image';sig.appendChild(di);}}
-    sheet.classList.remove('open');var im=sig.querySelector('img');if(im){sigAdded=true;sigstate.textContent='Image';}else if((sigText||'').trim()){sigAdded=true;sigstate.textContent=sigText;}else{sigMode='none';renderSig();sigstate.textContent='None';return;}document.querySelectorAll('.sigctl').forEach(function(r){r.hidden=false;});renderSig();
+    sheet.classList.remove('open');var im=sig.querySelector('img');if(im){sigAdded=true;sigstate.textContent='Image';}else if((sigText||'').trim()){sigAdded=true;sigstate.textContent=sigText;}else{sigMode='none';renderSig();sigstate.textContent='None';return;}document.getElementById('rmsig').hidden=false;document.querySelectorAll('.sigctl').forEach(function(r){r.hidden=false;});renderSig();
   };
 
   var fileEl=document.getElementById('file'),emptyEl=document.getElementById('empty'),editorEl=document.getElementById('editor');
